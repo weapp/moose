@@ -6,9 +6,14 @@ gem 'rails', '3.2.8'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
+
 gem 'haml-rails'
 gem 'redcarpet'
+
 gem 'devise'
+gem 'cancan'
+
+gem 'gravatar_image_tag'
 
 
 # Gems used only for assets and not required
