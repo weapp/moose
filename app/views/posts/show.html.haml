@@ -1,5 +1,6 @@
 #post
   = raw sanitize mkd.render @post.text
-= link_to 'Edit', edit_post_path(@post)
-|
+-if can? :edit, @post
+    = link_to 'Edit', edit_post_path(@post)
+    |
 \#{link_to 'Back', posts_path}
