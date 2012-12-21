@@ -448,3 +448,11 @@ table.posts{
 .btn:active{
   background: lighten($blue, 15%);
 }
+
+.edit_post{
+  textarea{
+    width: 100%;
+    max-width: 100%;
+    border-color:#DDD;
+  }
+}
