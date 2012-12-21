@@ -391,6 +391,7 @@ td { vertical-align: top; }
 
 
 
+
 $blue: #3bbfce;
 
 $red: #ce3f3b;
@@ -425,4 +426,25 @@ p.alert{
 
 table.posts{
   width: 100%;
+}
+
+.btn{
+  padding:1.1ex 1em .9ex;
+  background: lighten($blue, 12%);
+  border:1px solid $blue;
+  color: white;
+  display:inline-block;
+  margin:1ex 0;
+  text-align:center;
+}
+
+.btn:hover{
+  text-decoration:none;
+  color:#FFF;
+  padding-top:1.2ex;
+  padding-bottom:.8ex;
+ 
+}
+.btn:active{
+  background: lighten($blue, 15%);
 }

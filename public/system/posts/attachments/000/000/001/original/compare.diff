@@ -1,0 +1,943 @@
+diff -ru tiendamas/tienda-mas/app/assets/javascripts/public/orders.js projects/tienda-mas/app/assets/javascripts/public/orders.js
+--- tiendamas/tienda-mas/app/assets/javascripts/public/orders.js	2012-11-13 13:40:42.692042516 +0100
++++ projects/tienda-mas/app/assets/javascripts/public/orders.js	2012-11-15 16:49:08.560185869 +0100
+@@ -1,61 +1,63 @@
+-(function() {
+ 
+-  $(function() {
+-    $('.btn', '#my-order').hide();
+-    $('.quantity', '.edit_order_item').bind('keyup mouseup', function(event) {
+-      var $input_quantity;
+-      $input_quantity = $(this);
+-      return setTimeout((function() {
+-        if ($input_quantity.val() === "") {
+-          $input_quantity.val("1");
+-        }
+-        return $input_quantity.parents('form').submit();
+-      }), 200);
+-    });
+-    $('.delete-order-item', '#my-order').bind('ajax:success', function() {
+-      return $(this).closest('tr').addClass('deleting').fadeOut('slow', function() {
+-        return $(this).remove();
+-      });
+-    });
+-    $('#order-lists').masonry({
+-      itemSelector: ".order-list",
+-      columnWidth: 465,
+-      isAnimated: true
+-    });
+-    $("input.datepicker").each(function(i) {
+-      return $(this).datepicker({
+-        altFormat: "dd-mm-yy",
+-        dateFormat: "dd-mm-yy",
+-        altField: $(this).next()
+-      });
+-    });
+-    $(".order-list").hover((function() {
+-      return $(".delete", this).fadeIn();
+-    }), function() {
+-      return $(".delete", this).fadeOut();
+-    });
+-    $(document).on("click", "#cart", function(event) {
+-      event.preventDefault();
+-      event.stopPropagation();
+-      $("#cart-content").toggle();
+-      if ($("#cart-content").is(":visible")) {
+-        return $("#cart a").css("background-position", "130px -66px");
+-      } else {
+-        return $("#cart a").css("background-position", "130px 0");
++$(function() {
++  $('.btn', '#my-order').hide();
++  $('.quantity', '.edit_order_item').bind('keyup mouseup', function(event) {
++    var $input_quantity;
++    $input_quantity = $(this);
++    return setTimeout((function() {
++      if ($input_quantity.val() === "") {
++        $input_quantity.val("1");
+       }
++      return $input_quantity.parents('form').submit();
++    }), 200);
++  });
++  $('.delete-order-item', '#my-order').bind('ajax:success', function() {
++    return $(this).closest('tr').addClass('deleting').fadeOut('slow', function() {
++      return $(this).remove();
+     });
+-    return $(document).on("click", ".weight-product-comment-in-order a", function(event) {
+-      var comment, input_id, row_id;
+-      event.preventDefault();
+-      event.stopPropagation();
+-      row_id = $(this).attr("class");
+-      input_id = row_id + "-comment";
+-      comment = $("textarea[name=" + input_id + "]").last().val();
+-      $("<input />").attr("type", "hidden").attr("name", "order_item[comments]").attr("value", comment).appendTo("#" + row_id + " form");
+-      $.prettyPhoto.close();
+-      $("#" + row_id + " form").submit().find('input[name="order_item[comments]"]').remove();
+-      return $("textarea[name=" + input_id + "]").first().text(comment);
++  });
++  $('#order-lists').masonry({
++    itemSelector: ".order-list",
++    columnWidth: 465,
++    isAnimated: true
++  });
++  $("input.datepicker").each(function(i) {
++    return $(this).datepicker({
++      altFormat: "dd-mm-yy",
++      dateFormat: "dd-mm-yy",
++      altField: $(this).next()
+     });
+   });
+-
+-}).call(this);
++  $(".order-list").hover((function() {
++    return $(".delete", this).fadeIn();
++  }), function() {
++    return $(".delete", this).fadeOut();
++  });
++  $(document).on("click", "#cart", function(event) {
++    event.preventDefault();
++    event.stopPropagation();
++    $("#cart-content").toggle();
++    if ($("#cart-content").is(":visible")) {
++      $("#cart-content").load('/cart')
++      $("#cart a").css("background-position", "130px -66px");
++      if ($("#cart-content").height() > ($("#main").height() - 160)) {
++        return $("#main").height($("#cart-content").height() + 160);
++      }
++    } else {
++      $("#cart a").css("background-position", "130px 0");
++      return $("#main").height("auto");
++    }
++  });
++  return $(document).on("click", ".weight-product-comment-in-order a", function(event) {
++    var comment, input_id, row_id;
++    event.preventDefault();
++    event.stopPropagation();
++    row_id = $(this).attr("class");
++    input_id = row_id + "-comment";
++    comment = $("textarea[name=" + input_id + "]").last().val();
++    $("<input />").attr("type", "hidden").attr("name", "order_item[comments]").attr("value", comment).appendTo("#" + row_id + " form");
++    $.prettyPhoto.close();
++    $("#" + row_id + " form").submit().find('input[name="order_item[comments]"]').remove();
++    return $("textarea[name=" + input_id + "]").first().text(comment);
++  });
++});
+\ No hay ningún carácter de nueva línea al final del fichero
+diff -ru tiendamas/tienda-mas/app/assets/javascripts/public/orders.js.coffee projects/tienda-mas/app/assets/javascripts/public/orders.js.coffee
+--- tiendamas/tienda-mas/app/assets/javascripts/public/orders.js.coffee	2012-11-13 13:40:42.692042516 +0100
++++ projects/tienda-mas/app/assets/javascripts/public/orders.js.coffee	2012-11-15 16:49:08.596186153 +0100
+@@ -44,8 +44,11 @@
+     $("#cart-content").toggle()
+     if $("#cart-content").is(":visible")
+       $("#cart a").css "background-position", "130px -66px"
++      if $("#cart-content").height() > ($("#main").height() - 160)
++        $("#main").height($("#cart-content").height() + 160)
+     else
+       $("#cart a").css "background-position", "130px 0"
++      $("#main").height("auto")
+     
+   $(document).on "click", ".weight-product-comment-in-order a", (event) ->
+     event.preventDefault()
+diff -ru tiendamas/tienda-mas/app/assets/stylesheets/layout.css.scss projects/tienda-mas/app/assets/stylesheets/layout.css.scss
+--- tiendamas/tienda-mas/app/assets/stylesheets/layout.css.scss	2012-11-13 13:40:42.696042543 +0100
++++ projects/tienda-mas/app/assets/stylesheets/layout.css.scss	2012-11-15 16:49:08.612186279 +0100
+@@ -99,12 +99,30 @@
+   #topnav-content{
+     @include float-right;
+     p{
+-      @include float-left;
++      @include float-right;
++      margin-bottom: 25px;
+     }
+     nav{
+       @include float-right;
+       margin-top: 6px;
+     }
++    #store {
++      a{
++        float: right;
++        clear: both;
++        margin: 0 5px -10px 0;
++        font-size: 1.1em;
++        font-weight: bold;
++        background-color: #999;
++        color: #fff;
++        text-shadow: 0 1px 0 #000;
++        padding: 5px;
++        @include radius;
++        &:hover {
++          background-color: #666;
++        }
++      }
++    }
+   }
+ 
+   #hello{
+@@ -115,6 +133,13 @@
+ 
+ }
+ 
++#market-info {
++  strong {
++    width: 85px;
++    display: inline-block;
++  }
++}
++
+ #user-menu{
+   overflow: hidden;
+   margin-bottom: 20px;
+diff -ru tiendamas/tienda-mas/app/assets/stylesheets/public/form.css.scss projects/tienda-mas/app/assets/stylesheets/public/form.css.scss
+--- tiendamas/tienda-mas/app/assets/stylesheets/public/form.css.scss	2012-11-13 13:40:42.696042543 +0100
++++ projects/tienda-mas/app/assets/stylesheets/public/form.css.scss	2012-11-15 16:49:08.612186279 +0100
+@@ -312,8 +312,7 @@
+     margin: 5px 0;
+   }
+   select {
+-    font-size: 1.4em;
+-    width:100%;
++    font-size: 2em;
+   }
+   button {
+     @include button;
+diff -ru tiendamas/tienda-mas/app/assets/stylesheets/public/orders.css.scss projects/tienda-mas/app/assets/stylesheets/public/orders.css.scss
+--- tiendamas/tienda-mas/app/assets/stylesheets/public/orders.css.scss	2012-11-13 13:40:42.696042543 +0100
++++ projects/tienda-mas/app/assets/stylesheets/public/orders.css.scss	2012-11-19 12:42:48.196362585 +0100
+@@ -126,6 +126,9 @@
+       }
+       width: 115px;
+     }
++    td.name {
++        max-width: 255px;
++    }
+     td.promotion span {
+       color: #fff;
+       background-color: $dark-red;
+@@ -244,7 +247,16 @@
+   }
+ }
+ 
+-form.set-order {
++.horarioservicio{
++    @include radius;
++    label {
++      font-size: 1.2em;
++      float: none;
++      text-shadow: 0 1px 0 #fff;
++    }
++}
++
++.set-order {
+   text-align: right;
+   margin-top: 10px;
+   width: 100%;
+@@ -268,7 +280,7 @@
+   }
+ }
+ 
+-form.set-order a.modal, a.place-order {
++.set-order a.modal, a.place-order {
+   @include button;
+   float: right;
+   background-color: green;
+diff -ru tiendamas/tienda-mas/app/controllers/application_controller.rb projects/tienda-mas/app/controllers/application_controller.rb
+--- tiendamas/tienda-mas/app/controllers/application_controller.rb	2012-11-13 13:40:42.696042543 +0100
++++ projects/tienda-mas/app/controllers/application_controller.rb	2012-11-15 16:49:08.620186343 +0100
+@@ -3,6 +3,7 @@
+ 
+   layout :layout_by_resource
+ 
++  helper_method :current_market
+   helper_method :current_order
+   helper_method :check_meta_needed!  
+   helper_method :is_postal_code_deliverable?
+@@ -19,6 +20,14 @@
+   end
+ 
+   private
++  
++  def current_market
++    if current_order.market_id.present?
++      return Market.find current_order.market_id
++    else  
++      return nil
++    end
++  end
+ 
+   def current_order
+     
+diff -ru tiendamas/tienda-mas/app/controllers/orders_controller.rb projects/tienda-mas/app/controllers/orders_controller.rb
+--- tiendamas/tienda-mas/app/controllers/orders_controller.rb	2012-11-13 13:40:42.696042543 +0100
++++ projects/tienda-mas/app/controllers/orders_controller.rb	2012-11-19 10:50:11.015741232 +0100
+@@ -1,13 +1,44 @@
++#require_dependency "Masconn"
++Dir[File.join(Rails.root, 'app', 'models', 'Masconn', '*.rb')].sort.each do |file|
++  require_dependency file
++end
++
+ class OrdersController < ApplicationController
+   
+   before_filter :authenticate_user!, :only => [:index, :new]
+   before_filter :check_user!, :only => [:show, :destroy]
+   before_filter :check_list, :only => [:destroy]
+-  
++
++  layout false, only: :cart
++
++
++  def cart
++  end
++
+   def show
+     @order = Order.find(params[:id]) || current_order
++
++    create_deliver_options
++
++    @horarioservicio = Masconn::RemoteHorarioServicio.where(codcli: current_user.email)
+   end
+   
++  def create_deliver_options
++    codalm = Store.find_by_postal_code(session[:postal_code]).store_cod
++    conn = Masconn::Base.connection()
++    #conn = ActiveRecord::Base.establish_connection("mas_db").connection
++    #TODO: Securize this
++    conn.execute("CALL PKG_HORARIO_SERVICIO.GENERA_HORARIO_SERVICIO('#{current_user.email}', #{codalm}, 'T')")
++    #OCI8.new('MAS_TV', 'MAS_TV', '//82.144.20.205:8102/TIENDAVIRTUA')
++    #cursor = conn.parse "call PKG_HORARIO_SERVICIO.GENERA_HORARIO_SERVICIO('RRV', 131, 'T');"
++    #cursor.bind_param(':codcli_string', current_user.email, String)
++    #cursor.bind_param(':plataforma_integer', codalm, String)
++    #cursor.bind_param(':servicio_string', "D", String)
++    #cursor.exec
++    #cursor.close
++
++  end
++
+   def update
+     @order = Order.find(params[:id]) || current_order
+     
+@@ -72,8 +103,13 @@
+   end
+   
+   def new
++    #flash[:notice] = "------"
+     store = Store.find_by_postal_code(session[:postal_code])
+-    market_id = Market.select(:id).where("codalm = #{store.store_cod}").first.id
++    if session[:deliver_option] != 3
++      market_id = Market.select(:id).where("codalm = #{store.store_cod}").first.id
++    elsif session[:deliver_option] == 3 && session[:market_id].present?
++      market_id = session[:market_id]
++    end
+     @current_order = Order.create(market_id: market_id, delivery_option: session[:deliver_option])
+     @current_order.user = current_user
+ 
+diff -ru tiendamas/tienda-mas/app/controllers/products_controller.rb projects/tienda-mas/app/controllers/products_controller.rb
+--- tiendamas/tienda-mas/app/controllers/products_controller.rb	2012-11-13 13:40:42.696042543 +0100
++++ projects/tienda-mas/app/controllers/products_controller.rb	2012-11-16 15:26:12.769507716 +0100
+@@ -55,7 +55,7 @@
+   
+   def products
+     ############## maybe fuction or filter
+-    brand = params[:brand].present? ? params[:brand].upcase.to_crc32 : nil
++    brand = params[:brand].present? ? params[:brand].to_crc32 : nil
+     sector_description = params[:sector_description].present? ? params[:sector_description].upcase.to_crc32 : nil
+     section_description = params[:section_description].present? ? params[:section_description].upcase.to_crc32 : nil
+     category = params[:category].present? ? params[:category].upcase.to_crc32 : nil
+@@ -66,11 +66,15 @@
+     if params[:term]
+       scope = Product.search params[:term], :order => :final_price, :star => true, :page => params[:page], :per_page => Product.per_page
+     else
+-      scope = Product.search params[:q].present? ? params[:q].upcase : nil,
+-        :order => :final_price,
+-        :page => params[:page],
+-        :per_page => Product.per_page,
+-        :with => with_options
++      if params[:q]!= nil && params[:q].length < 3
++        scope = []
++      else
++        scope = Product.search params[:q].present? ? params[:q].upcase : nil,
++          :order => :final_price,
++          :page => params[:page],
++          :per_page => Product.per_page,
++          :with => with_options       
++      end
+     end
+     
+     @products = scope
+diff -ru tiendamas/tienda-mas/app/controllers/users/addresses_controller.rb projects/tienda-mas/app/controllers/users/addresses_controller.rb
+--- tiendamas/tienda-mas/app/controllers/users/addresses_controller.rb	2012-11-13 13:40:42.696042543 +0100
++++ projects/tienda-mas/app/controllers/users/addresses_controller.rb	2012-11-15 16:49:08.636186469 +0100
+@@ -33,6 +33,7 @@
+     if market.present?
+       current_user.last_deliver_option= {3 => market.id}
+       session[:postal_code] = market.cp
++      session[:market_id] = market.id
+       redirect_to products_path
+     else
+       flash[:error] = "Tienes que seleccionar un supermercado"
+@@ -41,6 +42,6 @@
+   end
+   
+   def data_for
+-    @markets = Market.find_all_by_poblacion(params[:local]).collect{|m| [m.descalm + "--" + m.domicilio, m.id]}
++    @markets = Market.find_all_by_poblacion(params[:local]).collect{|m| [m.descalm + " - " + m.domicilio, m.id]}
+   end
+ end
+diff -ru tiendamas/tienda-mas/app/models/address.rb projects/tienda-mas/app/models/address.rb
+--- tiendamas/tienda-mas/app/models/address.rb	2012-11-13 13:40:42.696042543 +0100
++++ projects/tienda-mas/app/models/address.rb	2012-11-18 09:57:25.468732424 +0100
+@@ -1,3 +1,22 @@
++# == Schema Information
++#
++# Table name: addresses
++#
++#  id          :integer          not null, primary key
++#  road_type   :string(255)
++#  road_name   :string(255)
++#  number      :string(255)
++#  stair       :string(255)
++#  floor       :string(255)
++#  door        :string(255)
++#  postal_code :string(255)
++#  main        :boolean
++#  user_id     :integer
++#  deliverable :boolean
++#  created_at  :datetime         not null
++#  updated_at  :datetime         not null
++#
++
+ class Address < ActiveRecord::Base
+   attr_accessible :door, :floor, :number, :postal_code, :road_name, :road_type, :stair, :main
+   
+@@ -52,4 +71,4 @@
+       remote_address.save
+     end
+   end
+-end
+\ No hay ningún carácter de nueva línea al final del fichero
++end
+diff -ru tiendamas/tienda-mas/app/models/admin.rb projects/tienda-mas/app/models/admin.rb
+--- tiendamas/tienda-mas/app/models/admin.rb	2012-11-13 13:40:42.696042543 +0100
++++ projects/tienda-mas/app/models/admin.rb	2012-11-18 09:57:24.956738799 +0100
+@@ -1,3 +1,22 @@
++# == Schema Information
++#
++# Table name: admins
++#
++#  id                     :integer          not null, primary key
++#  email                  :string(255)      default(""), not null
++#  encrypted_password     :string(255)      default(""), not null
++#  reset_password_token   :string(255)
++#  reset_password_sent_at :datetime
++#  remember_created_at    :datetime
++#  sign_in_count          :integer          default(0)
++#  current_sign_in_at     :datetime
++#  last_sign_in_at        :datetime
++#  current_sign_in_ip     :string(255)
++#  last_sign_in_ip        :string(255)
++#  created_at             :datetime         not null
++#  updated_at             :datetime         not null
++#
++
+ class Admin < ActiveRecord::Base
+   # Include default devise modules. Others available are:
+   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
+diff -ru tiendamas/tienda-mas/app/models/carousel_slide.rb projects/tienda-mas/app/models/carousel_slide.rb
+--- tiendamas/tienda-mas/app/models/carousel_slide.rb	2012-11-13 13:40:42.696042543 +0100
++++ projects/tienda-mas/app/models/carousel_slide.rb	2012-11-18 09:57:22.368771032 +0100
+@@ -1,3 +1,16 @@
++# == Schema Information
++#
++# Table name: carousel_slides
++#
++#  id         :integer          not null, primary key
++#  body       :text
++#  image      :string(255)
++#  active     :boolean          default(FALSE)
++#  position   :integer
++#  created_at :datetime         not null
++#  updated_at :datetime         not null
++#
++
+ class CarouselSlide < ActiveRecord::Base
+   
+   attr_accessible :body, :image, :active, :position
+diff -ru tiendamas/tienda-mas/app/models/comment.rb projects/tienda-mas/app/models/comment.rb
+--- tiendamas/tienda-mas/app/models/comment.rb	2012-11-13 13:40:42.696042543 +0100
++++ projects/tienda-mas/app/models/comment.rb	2012-11-18 09:57:23.136761465 +0100
+@@ -1,3 +1,15 @@
++# == Schema Information
++#
++# Table name: comments
++#
++#  id         :integer          not null, primary key
++#  text       :text
++#  product_id :integer
++#  user_id    :integer
++#  created_at :datetime         not null
++#  updated_at :datetime         not null
++#
++
+ class Comment < ActiveRecord::Base
+   
+   attr_accessible :text
+diff -ru tiendamas/tienda-mas/app/models/ingredient.rb projects/tienda-mas/app/models/ingredient.rb
+--- tiendamas/tienda-mas/app/models/ingredient.rb	2012-11-13 13:40:42.696042543 +0100
++++ projects/tienda-mas/app/models/ingredient.rb	2012-11-18 09:57:25.312734368 +0100
+@@ -1,3 +1,15 @@
++# == Schema Information
++#
++# Table name: ingredients
++#
++#  id         :integer          not null, primary key
++#  product_id :integer
++#  recipe_id  :integer
++#  quantity   :string(255)
++#  created_at :datetime         not null
++#  updated_at :datetime         not null
++#
++
+ class Ingredient < ActiveRecord::Base
+   attr_accessible :product_id, :recipe_id, :quantity
+   attr_reader :prod
+diff -ru tiendamas/tienda-mas/app/models/market.rb projects/tienda-mas/app/models/market.rb
+--- tiendamas/tienda-mas/app/models/market.rb	2012-11-13 13:40:42.696042543 +0100
++++ projects/tienda-mas/app/models/market.rb	2012-11-18 09:57:24.828740397 +0100
+@@ -1,3 +1,21 @@
++# == Schema Information
++#
++# Table name: markets
++#
++#  id         :integer          not null, primary key
++#  codalm     :string(255)      not null
++#  descalm    :string(255)      not null
++#  tlf        :string(255)
++#  domicilio  :string(255)
++#  poblacion  :string(255)
++#  provincia  :string(255)
++#  cp         :string(255)
++#  lat        :string(255)
++#  long       :string(255)
++#  created_at :datetime         not null
++#  updated_at :datetime         not null
++#
++
+ class Market < ActiveRecord::Base
+   attr_accessible :codalm, :descalm, :tlf, :domicilio, :poblacion, :provincia, :cp, :lat, :long
+   
+Sólo en projects/tienda-mas/app/models/Masconn: remote_horario_servicio.rb
+diff -ru tiendamas/tienda-mas/app/models/order_item.rb projects/tienda-mas/app/models/order_item.rb
+--- tiendamas/tienda-mas/app/models/order_item.rb	2012-11-13 13:40:42.696042543 +0100
++++ projects/tienda-mas/app/models/order_item.rb	2012-11-18 09:57:23.304759373 +0100
+@@ -1,3 +1,18 @@
++# == Schema Information
++#
++# Table name: order_items
++#
++#  id         :integer          not null, primary key
++#  order_id   :integer
++#  product_id :integer
++#  quantity   :float            default(1.0)
++#  created_at :datetime         not null
++#  updated_at :datetime         not null
++#  price      :float            not null
++#  total      :float            not null
++#  comments   :string(255)
++#
++
+ class OrderItem < ActiveRecord::Base
+   # attr_accessible
+   attr_accessible :product, :quantity, :comments
+@@ -11,6 +26,8 @@
+   
+   # validates
+   
++  validates :quantity, numericality: { greater_than: 0, less_than_or_equal_to: 1000 }
++
+   # callbacks
+   
+   before_save :set_total
+diff -ru tiendamas/tienda-mas/app/models/order.rb projects/tienda-mas/app/models/order.rb
+--- tiendamas/tienda-mas/app/models/order.rb	2012-11-13 13:40:42.696042543 +0100
++++ projects/tienda-mas/app/models/order.rb	2012-11-18 09:57:25.180736007 +0100
+@@ -1,3 +1,23 @@
++# == Schema Information
++#
++# Table name: orders
++#
++#  id                :integer          not null, primary key
++#  user_id           :integer
++#  created_at        :datetime         not null
++#  updated_at        :datetime         not null
++#  order_items_count :integer          default(0)
++#  total             :float            default(0.0), not null
++#  state             :string(128)      default("in_process")
++#  name              :string(255)
++#  deliver_date      :date
++#  pay_method        :string(255)
++#  market_id         :integer
++#  delivery_option   :integer
++#  comment           :text
++#  address_id        :integer
++#
++
+ class Order < ActiveRecord::Base
+ 
+   attr_accessor :set_list
+diff -ru tiendamas/tienda-mas/app/models/postal_code.rb projects/tienda-mas/app/models/postal_code.rb
+--- tiendamas/tienda-mas/app/models/postal_code.rb	2012-11-13 13:40:42.696042543 +0100
++++ projects/tienda-mas/app/models/postal_code.rb	2012-11-18 09:57:23.728754092 +0100
+@@ -1,3 +1,16 @@
++# == Schema Information
++#
++# Table name: postal_codes
++#
++#  id         :integer          not null, primary key
++#  code       :string(255)      not null
++#  state      :string(255)      default("Spain")
++#  province   :string(255)
++#  country    :string(255)
++#  created_at :datetime         not null
++#  updated_at :datetime         not null
++#
++
+ class PostalCode < ActiveRecord::Base
+   attr_accessible :code
+   
+diff -ru tiendamas/tienda-mas/app/models/product_price.rb projects/tienda-mas/app/models/product_price.rb
+--- tiendamas/tienda-mas/app/models/product_price.rb	2012-11-13 13:40:42.700042570 +0100
++++ projects/tienda-mas/app/models/product_price.rb	2012-11-18 09:57:22.984763358 +0100
+@@ -1,3 +1,20 @@
++# == Schema Information
++#
++# Table name: product_prices
++#
++#  id                :integer          not null, primary key
++#  price             :float            not null
++#  final_price       :float            not null
++#  promo_description :string(255)
++#  old_price         :float
++#  product_id        :integer
++#  market_id         :integer
++#  created_at        :datetime         not null
++#  updated_at        :datetime         not null
++#  codart            :string(255)      not null
++#  highlighted       :boolean
++#
++
+ class ProductPrice < ActiveRecord::Base
+   attr_accessible :price, :final_price, :promo_description, :highlighted, :codart
+   
+diff -ru tiendamas/tienda-mas/app/models/product.rb projects/tienda-mas/app/models/product.rb
+--- tiendamas/tienda-mas/app/models/product.rb	2012-11-13 13:40:42.700042570 +0100
++++ projects/tienda-mas/app/models/product.rb	2012-11-18 09:57:24.216748016 +0100
+@@ -1,3 +1,30 @@
++# == Schema Information
++#
++# Table name: products
++#
++#  id                  :integer          not null, primary key
++#  name                :string(255)
++#  description         :text
++#  brand               :string(255)
++#  image               :string(255)
++#  created_at          :datetime         not null
++#  updated_at          :datetime         not null
++#  code                :string(255)
++#  category            :string(255)
++#  up_votes            :integer          default(0), not null
++#  down_votes          :integer          default(0), not null
++#  nutrition_facts     :text
++#  order_items_count   :integer          default(0)
++#  price_changed       :boolean          default(FALSE)
++#  sector_code         :string(255)
++#  sector_description  :string(255)
++#  section_code        :string(255)
++#  section_description :string(255)
++#  category_code       :string(255)
++#  weight              :integer
++#  image_updated_at    :date
++#
++
+ class Product < ActiveRecord::Base
+   #attr_accessor :price, :old_price, :final_price, :promo_description, :highlighted
+   cattr_accessor :market_id
+@@ -156,4 +183,4 @@
+   end
+   
+   
+-end
+\ No hay ningún carácter de nueva línea al final del fichero
++end
+diff -ru tiendamas/tienda-mas/app/models/recipe.rb projects/tienda-mas/app/models/recipe.rb
+--- tiendamas/tienda-mas/app/models/recipe.rb	2012-11-13 13:40:42.700042570 +0100
++++ projects/tienda-mas/app/models/recipe.rb	2012-11-18 09:57:23.560756183 +0100
+@@ -1,3 +1,15 @@
++# == Schema Information
++#
++# Table name: recipes
++#
++#  id          :integer          not null, primary key
++#  name        :string(255)
++#  description :text
++#  user_id     :integer
++#  created_at  :datetime         not null
++#  updated_at  :datetime         not null
++#
++
+ class Recipe < ActiveRecord::Base
+   attr_accessible :description, :name, :user_id, :ingredients_attributes
+   
+diff -ru tiendamas/tienda-mas/app/models/section_order.rb projects/tienda-mas/app/models/section_order.rb
+--- tiendamas/tienda-mas/app/models/section_order.rb	2012-11-13 13:40:42.700042570 +0100
++++ projects/tienda-mas/app/models/section_order.rb	2012-11-18 09:57:22.556768691 +0100
+@@ -1,3 +1,14 @@
++# == Schema Information
++#
++# Table name: section_orders
++#
++#  id         :integer          not null, primary key
++#  name       :string(255)
++#  weight     :integer
++#  created_at :datetime         not null
++#  updated_at :datetime         not null
++#
++
+ class SectionOrder < ActiveRecord::Base  
+   attr_accessible :name, :weight
+   
+diff -ru tiendamas/tienda-mas/app/models/store.rb projects/tienda-mas/app/models/store.rb
+--- tiendamas/tienda-mas/app/models/store.rb	2012-11-13 13:40:42.700042570 +0100
++++ projects/tienda-mas/app/models/store.rb	2012-11-18 09:57:24.652742584 +0100
+@@ -1,3 +1,16 @@
++# == Schema Information
++#
++# Table name: stores
++#
++#  id                 :integer          not null, primary key
++#  postal_code        :string(255)
++#  postal_description :string(255)
++#  store_cod          :string(255)
++#  province           :string(255)
++#  created_at         :datetime         not null
++#  updated_at         :datetime         not null
++#
++
+ class Store < ActiveRecord::Base
+   attr_accessible :postal_code, :postal_description, :province, :store_cod
+   
+diff -ru tiendamas/tienda-mas/app/models/user_product_price_watch.rb projects/tienda-mas/app/models/user_product_price_watch.rb
+--- tiendamas/tienda-mas/app/models/user_product_price_watch.rb	2012-11-13 13:40:42.700042570 +0100
++++ projects/tienda-mas/app/models/user_product_price_watch.rb	2012-11-18 09:57:22.796765700 +0100
+@@ -1,3 +1,14 @@
++# == Schema Information
++#
++# Table name: user_product_price_watches
++#
++#  id         :integer          not null, primary key
++#  user_id    :integer
++#  product_id :integer
++#  created_at :datetime         not null
++#  updated_at :datetime         not null
++#
++
+ class UserProductPriceWatch < ActiveRecord::Base
+   attr_accessible :product_id, :user_id
+ 
+diff -ru tiendamas/tienda-mas/app/models/user.rb projects/tienda-mas/app/models/user.rb
+--- tiendamas/tienda-mas/app/models/user.rb	2012-11-13 13:40:42.700042570 +0100
++++ projects/tienda-mas/app/models/user.rb	2012-11-18 09:57:23.896752001 +0100
+@@ -1,4 +1,44 @@
+ # encoding: utf-8
++# == Schema Information
++#
++# Table name: users
++#
++#  id                          :integer          not null, primary key
++#  email                       :string(255)      default(""), not null
++#  encrypted_password          :string(255)      default(""), not null
++#  reset_password_token        :string(255)
++#  reset_password_sent_at      :datetime
++#  remember_created_at         :datetime
++#  sign_in_count               :integer          default(0)
++#  current_sign_in_at          :datetime
++#  last_sign_in_at             :datetime
++#  current_sign_in_ip          :string(255)
++#  last_sign_in_ip             :string(255)
++#  confirmation_token          :string(255)
++#  confirmed_at                :datetime
++#  confirmation_sent_at        :datetime
++#  created_at                  :datetime         not null
++#  updated_at                  :datetime         not null
++#  up_votes                    :integer          default(0), not null
++#  down_votes                  :integer          default(0), not null
++#  name                        :string(255)
++#  deliver_option              :string(255)
++#  surname1                    :string(255)
++#  surname2                    :string(255)
++#  birth_date                  :date
++#  sex                         :string(255)
++#  dni                         :string(255)
++#  phone                       :string(255)
++#  mobile                      :string(255)
++#  family_card                 :string(255)
++#  canceled_at                 :date
++#  credit_card                 :binary
++#  credit_card_key             :binary
++#  credit_card_iv              :binary
++#  credit_card_kind            :string(255)
++#  credit_card_expiration_date :date
++#
++
+ 
+ class User < ActiveRecord::Base
+   
+Sólo en projects/tienda-mas/app/views: masconn
+diff -ru tiendamas/tienda-mas/app/views/order_items/_order_item.haml projects/tienda-mas/app/views/order_items/_order_item.haml
+--- tiendamas/tienda-mas/app/views/order_items/_order_item.haml	2012-11-13 13:40:42.700042570 +0100
++++ projects/tienda-mas/app/views/order_items/_order_item.haml	2012-11-19 10:56:16.745549145 +0100
+@@ -4,7 +4,7 @@
+       %ol
+         = f.input :quantity, as: :integer, input_html: { min: order_item.product.weight? ? 0.25 : 1, step: order_item.product.weight? ? 0.25 : 1, value: order_item.quantity, id: "order_item_#{order_item.id}_quantity", class: 'quantity' }, label_html: { class: 'hidden' }
+       = f.button :submit, 'Actualizar', :class => 'refresh', :title => 'Actualizar'
+-  %td
++  %td.name
+     = link_to order_item.name, order_item.product, title: order_item.name, itemprop: 'url'
+   %td
+     = number_to_currency order_item.product.price
+Sólo en projects/tienda-mas/app/views/orders: cart.html.haml
+diff -ru tiendamas/tienda-mas/app/views/orders/show.html.haml projects/tienda-mas/app/views/orders/show.html.haml
+--- tiendamas/tienda-mas/app/views/orders/show.html.haml	2012-11-13 13:40:42.700042570 +0100
++++ projects/tienda-mas/app/views/orders/show.html.haml	2012-11-19 12:39:45.063390929 +0100
+@@ -35,13 +35,24 @@
+               %span#order-total-discounted= number_to_currency @order.total
+ 
+       = user_signed_in_partial do
+-        = simple_form_for @order, :html => { :class => "set-order" } do |f|
+-          = f.hidden_field :pay, value: true
+-          = f.input :comment, :label => "¿Tienes algún comentario sobre el pedido?"
+-          - delivery_option = @order.delivery_option || session[:delivery_option]
+-          - if delivery_option != 3
+-            = f.input :pay_method, :collection => Order::PAY_METHODS, :label => "Forma de pago", :include_blank => false
+-          = link_to "Hacer pedido", "#order-summary", :class => "modal"
++        = simple_form_for @order, :html => { :class => "" } do |f|
++          %table.horarioservicio
++            -@horarioservicio.group_by(&:dia).each do |k, v|
++              %tr{style:"border-bottom:1px solid #BF2F37"}
++                %td
++                  %b
++                    = k.strftime("%d/%m/%Y")
++                -v.each do |hs|
++                  %td
++                    =f.collection_radio_buttons :deliver_date, [[hs.dia+hs.desde_hora*60, "#{hs.desde_hora/60}:#{"%02d" % (hs.desde_hora%60)} - #{hs.hasta_hora/60}:#{"%02d" % (hs.hasta_hora%60)}"]], :first, :last
++
++          .set-order
++            = f.hidden_field :pay, value: true
++            = f.input :comment, :label => "¿Tienes algún comentario sobre el pedido?"
++            - delivery_option = @order.delivery_option || session[:delivery_option]
++            - if delivery_option != 3
++              = f.input :pay_method, :collection => Order::PAY_METHODS, :label => "Forma de pago", :include_blank => false
++            = link_to "Hacer pedido", "#order-summary", :class => "modal"
+ 
+       %div#order-summary.hidden
+         = render partial: 'summary', locals: { items: @order.order_items }
+diff -ru tiendamas/tienda-mas/app/views/products/index.html.haml projects/tienda-mas/app/views/products/index.html.haml
+--- tiendamas/tienda-mas/app/views/products/index.html.haml	2012-11-13 13:40:42.700042570 +0100
++++ projects/tienda-mas/app/views/products/index.html.haml	2012-11-16 15:26:12.769507716 +0100
+@@ -33,11 +33,16 @@
+           %p Lo sentimos, no hay ningún producto que coincida con sus criterios de búsqueda.
+           %p Le sugerimos:
+           %ul
+-            - if params[:q]
++            - if params[:q]!= nil && params[:q].length > 2
+               %li
+                 Comprobar que
+                 %strong= params[:q]
+                 está escrito de forma correcta.
++            - else
++              %li
++                Comprobar que
++                %strong= params[:q]
++                contiene más de tres caracteres.
+             - if params[:brand]
+               %li Elimine el filtro por marca si desea realizar búsquedas más generales.
+             - if params[:category]
+diff -ru tiendamas/tienda-mas/app/views/products/_product.html.haml projects/tienda-mas/app/views/products/_product.html.haml
+--- tiendamas/tienda-mas/app/views/products/_product.html.haml	2012-11-13 13:40:42.700042570 +0100
++++ projects/tienda-mas/app/views/products/_product.html.haml	2012-11-15 16:49:08.692186910 +0100
+@@ -1,16 +1,17 @@
+ %article{ itemscope: true, itemtype: "http://schema.org/Product", :class => "product #{product.highlighted ? 'highlighted' : ''}"}
+   %header
+     .image-link      
+-      = link_to (image_tag(product.image.index, alt: product.name, title: product.name, itemprop: 'image')), product.image.to_s, :class => "product-image"
++      %a.product-image{href: product.image.to_s}
++        = image_tag(product.image.index, alt: product.name, title: product.name, itemprop: 'image')
++      
++        - if product.promo_description.present?
++          %span.promo-ribbon= product.promo_description
++        - if product.weight?
++          %span.weight
++        %h1{ class: 'name', itemprop: "name" }
++          /= link_to product.name, product, title: product.name, itemprop: 'url'
++          = product.name
+       
+-      - if product.promo_description.present?
+-        %span.promo-ribbon= product.promo_description
+-      - if product.weight?
+-        %span.weight
+-    %h1{ class: 'name', itemprop: "name" }
+-      = link_to product.name, product, title: product.name, itemprop: 'url'
+-
+-  
+   %aside.prices
+     %dl
+       %dt.hidden Precio final
+diff -ru tiendamas/tienda-mas/app/views/shared/_topnav.haml projects/tienda-mas/app/views/shared/_topnav.haml
+--- tiendamas/tienda-mas/app/views/shared/_topnav.haml	2012-11-13 13:40:42.700042570 +0100
++++ projects/tienda-mas/app/views/shared/_topnav.haml	2012-11-15 16:49:08.708187037 +0100
+@@ -1,20 +1,39 @@
+ %aside#topnav{ role: 'navigation' }
+-
++  
+   %h1.hidden Menú de usuario
+   #topnav-content
+-    = unsigned_in_partial do
+-      %nav
++    %nav
++      = unsigned_in_partial do
+         / = link_to 'Entrar', [:new, :user, :session], title: 'Entrar'
+         = link_to 'Registrarme', [:new, :user, :registration], title: 'Registrarme'
+ 
+-    = user_signed_in_partial do
+-      %p
+-        %span#hello= "Hola #{current_user.email}"
+-
+-      %nav
++      = user_signed_in_partial do
+         = link_to 'mi cuenta', :dashboard , title: 'Mi cuenta'
+         = link_to 'salir', [:destroy, :user, :session], method: :delete, title: 'Salir', id: 'logout-link'
+         
++        %p
++          %span#hello= "Hola #{current_user.name} #{current_user.surname1}"
++        
++      - unless current_market.nil?
++        %span#store
++          = link_to "Estás haciendo tu pedido en la tienda #{current_market.codalm} #{current_market.descalm}", "#show_market", :class => "modal"
++          #show_market.hidden
++            #market-info
++              %h2= "#{current_market.codalm} #{current_market.descalm}"
++              %strong Dirección:
++              = current_market.domicilio
++              %br
++              %strong Población:
++              = current_market.poblacion
++              %br
++              %strong CP:
++              = current_market.cp
++              - if current_market.lat.present? && current_market.long.present?
++                %br
++                %br
++                %iframe{:frameborder => "0", :height => "350", :marginheight => "0", :marginwidth => "0", :scrolling => "no", :src => "http://maps.google.com/maps?q=loc:#{current_market.lat.gsub(',','.')},#{current_market.long.gsub(',','.')}&hl=es&ie=UTF8&output=embed", :width => "500"}
++      
++        
+     = admin_signed_in_partial do
+       %p
+         %span#hello

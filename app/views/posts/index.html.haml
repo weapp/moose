@@ -4,7 +4,13 @@
     %tr
       /%td= post.text
       %td
+        - if post.attachment.present?
+          = image_tag "attachment.gif"
         %a{href: (post_path post)}= truncate((strip_tags mkd.render post.text), :length => 60, :separator => ' ')
+        %br
+        (created: #{post.created_at.to_formatted_s(:short)})
+        - unless post.created_at.to_formatted_s(:short) == post.updated_at.to_formatted_s(:short)
+          (updated: #{post.updated_at.to_formatted_s(:short)})
 
       -if can? :update, post
         %td= link_to 'Edit', edit_post_path(post)

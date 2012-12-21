@@ -13,6 +13,7 @@ gem 'redcarpet'
 gem 'devise'
 gem 'cancan'
 
+gem 'paperclip'
 gem 'gravatar_image_tag'
 
 
