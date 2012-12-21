@@ -40,7 +40,6 @@ body {
   font-size: 14px;
   line-height: 20px;
   color: #333333;
-  background-color: #ffffff;
 }
 
 a {
@@ -261,11 +260,9 @@ body{
   //            "Hiragino Sans GB", "STXihei", "微软雅黑";
   //font-size:12px;
   //line-height:1.5em;
-  background:#fefefe;
   width: 45em;
   margin: 10px auto;
-  padding: 1em;
-  outline: 1300px solid #FAFAFA;
+  background: #FAFAFA;
 }
 
 //a{ color: #0645ad; text-decoration:none;}
@@ -293,7 +290,6 @@ margin:1em 0;
 }
 
 img{
-max-width:100%;
 }
 
 h1,h2,h3,h4,h5,h6{
@@ -416,7 +412,7 @@ p.alert{
 #user_nav{
   float:right;
   position:relative;
-  .gravatar{position:absolute;top:-5px;left:-30px}
+  .gravatar{position:absolute;top:-5px;left:-30px;}
 }
 
 
@@ -426,6 +422,7 @@ p.alert{
 
 table.posts{
   width: 100%;
+  .gravatar{float:left; margin: 0 .5em 0 -.5em;}
 }
 
 .btn{
@@ -455,4 +452,10 @@ table.posts{
     max-width: 100%;
     border-color:#DDD;
   }
+}
+
+.page{
+  background:#FFF;
+  padding: .5ex 1em;
+  margin:2ex 0;
 }

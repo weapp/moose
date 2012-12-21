@@ -4,6 +4,7 @@
     %tr
       /%td= post.text
       %td
+        = gravatar_for post.user, size: 50
         - if post.attachment.present?
           = image_tag "attachment.gif"
         %a{href: (post_path post)}= truncate((strip_tags mkd.render post.text), :length => 60, :separator => ' ')

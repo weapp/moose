@@ -13,6 +13,8 @@
 #
 
 class Post < ActiveRecord::Base
+  belongs_to :user
+
   attr_accessible :text, :attachment
 
   #has_attached_file :attachment, :styles => { :medium => "300x300>", :thumb => "100x100>" }
@@ -21,6 +23,10 @@ class Post < ActiveRecord::Base
 
   def to_param
     id
+  end
+
+  def self.find(id)
+    find_by_id(id)
   end
 
 end

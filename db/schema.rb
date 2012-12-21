@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121220231958) do
+ActiveRecord::Schema.define(:version => 20121221091117) do
 
   create_table "posts", :force => true do |t|
     t.string   "text"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20121220231958) do
     t.string   "attachment_content_type"
     t.integer  "attachment_file_size"
     t.datetime "attachment_updated_at"
+    t.integer  "user_id"
   end
 
   create_table "users", :force => true do |t|
