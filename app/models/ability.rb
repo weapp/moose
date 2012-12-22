@@ -6,11 +6,12 @@ class Ability
     user ||= User.new # guest user (not logged in)
     if user.admin?
       can :manage, :all
-    else
+    elsif !user.new_record?
       #can :read, :all
       can :read, Post do |post|
-        post.try(:user) == user || user.role?(:admin)
+        post.try(:user) == user || user.admin?
       end
+      can :read, Tag
     end
     #
     # The first argument to `can` is the action you are giving the user permission to do.

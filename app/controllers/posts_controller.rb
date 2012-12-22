@@ -11,7 +11,7 @@ class PostsController < ApplicationController
       if current_user.admin?
         @posts = Post.all
       else
-        @posts = Post.where(user_id:current_user.id)
+        @posts = Post.where(user_id: current_user.id)
       end
     end
 
@@ -52,7 +52,7 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(params[:post])
-    #@post.user = current_user
+    @post.user = current_user unless params[:post][:user_id]
 
     respond_to do |format|
       if @post.save

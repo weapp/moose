@@ -472,6 +472,19 @@ table.posts{
   a{color:inherit;}
 }
 
+#nav_bar .tags .tag{
+  border-radius:10px 10px 0 0;
+  border-bottom:0 none #000;
+  a, span{
+    padding:.5ex 2em;
+    display:inline-block;
+  }
+}
+
+.tag.current{
+  border-color:lighten(darken(#DFC69E, 20%), 20%);
+  background:lighten(#DFC69E, 20%);
+}
 
 
 .actions{

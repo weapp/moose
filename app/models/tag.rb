@@ -9,6 +9,9 @@
 #
 
 class Tag < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :tag
+
   has_many :post_tags
   has_many :posts, through: :post_tags
   

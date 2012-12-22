@@ -14,8 +14,9 @@
       ]
     %ul.tags
       - post.tags.each do |tag|
-        %li.tag
-          #{tag.tag}
+        - unless current_tab == tag.tag
+          %li.tag
+            =link_to tag.tag, tag
 
 
 

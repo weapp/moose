@@ -15,7 +15,6 @@
 
 class Post < ActiveRecord::Base
   belongs_to :user
-  #has_many :poststags, :class_name => 'PostsTags'
   has_many :post_tags
   has_many :tags, through: :post_tags
 
@@ -25,12 +24,25 @@ class Post < ActiveRecord::Base
   has_attached_file :attachment
   # => ,:path => ":rails_root/uploads/:class/:id/:basename.:extension"
 
-  def to_param
-    id
-  end
+  default_scope order('created_at DESC')
+  
+  scope :by_user, lambda { |user|
+    where(:user_id => user.id) unless user.admin?
+  }
 
-  def self.find(id)
-    find_by_id(id)
-  end
+
+  # default_scope do
+  #   lambda do
+  #     if current_user.nil?
+  #       where(user_id: -1)
+  #     else
+  #       if current_user.admin?
+  #         find(:all)
+  #       else
+  #         where(user_id: current_user.id)
+  #       end
+  #     end
+  #   end
+  # end
 
 end
