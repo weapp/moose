@@ -459,3 +459,23 @@ table.posts{
   padding: .5ex 1em;
   margin:2ex 0;
 }
+
+.tags{padding:0;margin:0;}
+.tags .tag{display:inline-block;}
+
+.tags .tag{
+  border:1px solid darken(#DFC69E, 20%);
+  background:#DFC69E;
+  padding:.25ex .5em;
+  font-family:Tahoma,Geneva,Kalimati,sans-serif;
+  border-radius:2px;
+  a{color:inherit;}
+}
+
+
+
+.actions{
+  background:whitesmoke;
+  padding: 1ex 1em;
+  text-align:right
+}

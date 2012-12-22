@@ -4,7 +4,7 @@ module ApplicationHelper
   end
 
   def gravatar_for(user, options={size:50})
-    gravatar_image_tag user.email.downcase, alt: user.username, class: 'gravatar', gravatar: options
+    gravatar_image_tag user.try(:email).try(:downcase), alt: user.try(:username), class: 'gravatar', gravatar: options
   end
 
 end

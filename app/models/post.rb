@@ -15,8 +15,11 @@
 
 class Post < ActiveRecord::Base
   belongs_to :user
+  #has_many :poststags, :class_name => 'PostsTags'
+  has_many :post_tags
+  has_many :tags, through: :post_tags
 
-  attr_accessible :text, :attachment, :user_id
+  attr_accessible :text, :attachment, :user_id, :tag_ids
 
   #has_attached_file :attachment, :styles => { :medium => "300x300>", :thumb => "100x100>" }
   has_attached_file :attachment

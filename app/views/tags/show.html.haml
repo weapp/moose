@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Tag:
+  = @tag.tag
+
+= link_to 'Edit', edit_tag_path(@tag)
+\|
+= link_to 'Back', tags_path
+
+=# render 'posts/posts', locals: {posts: @tag.posts}
+= render 'posts/posts', :collection => @tag.posts

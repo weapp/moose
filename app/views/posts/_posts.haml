@@ -1,0 +1,16 @@
+#nav_bar
+  = tabs_tag open_tabs: {class: "tags"} do |tab|
+    = tab.all 'all', root_path, class: "tag"
+    - Tag.all.each do |tag|
+      = tab.send tag.tag, tag.tag, tag, class: "tag"
+
+%table.posts
+  = render collection
+%br
+-if can? :create, :post
+  %form{action: new_post_path}
+    %button New Post
+
+
+-if can? :manage, :tags
+  = link_to 'Manage tags', tags_path

@@ -4,6 +4,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
+    set_tab :all
     if current_user.nil?
       @posts = []
     else

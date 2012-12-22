@@ -1,4 +1,4 @@
-#post
+#post.post
   = raw sanitize mkd.render @post.text
 
   -# @post.attachment_content_type
@@ -16,7 +16,13 @@
       %b
         Upadated at:
       = @post.attachment_updated_at.to_formatted_s(:short)
-    = link_to 'Download attachment', @post.attachment.url, class: 'btn'
+    = link_to 'Download: ' + @post.attachment_file_name, @post.attachment.url, class: 'btn'
+
+  %ul.tags
+    - @post.tags.each do |tag|
+      %li.tag
+        #{tag.tag}
+
 
 -if can? :edit, @post
   = link_to 'Edit', edit_post_path(@post)
