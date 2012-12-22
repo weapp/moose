@@ -10,6 +10,7 @@
 #  attachment_content_type :string(255)
 #  attachment_file_size    :integer
 #  attachment_updated_at   :datetime
+#  user_id                 :integer
 #
 
 require 'test_helper'

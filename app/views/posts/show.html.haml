@@ -4,6 +4,18 @@
   -# @post.attachment_content_type
 
   - if @post.attachment.present?
+    .data
+      %b
+        Type:
+      = @post.attachment_content_type
+    .data
+      %b
+        Size:
+      = number_to_human_size(@post.attachment_file_size)
+    .data
+      %b
+        Upadated at:
+      = @post.attachment_updated_at.to_formatted_s(:short)
     = link_to 'Download attachment', @post.attachment.url, class: 'btn'
 
 -if can? :edit, @post

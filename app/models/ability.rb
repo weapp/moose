@@ -7,7 +7,10 @@ class Ability
     if user.admin?
       can :manage, :all
     else
-      can :read, :all
+      #can :read, :all
+      can :read, Post do |post|
+        post.try(:user) == user || user.role?(:admin)
+      end
     end
     #
     # The first argument to `can` is the action you are giving the user permission to do.

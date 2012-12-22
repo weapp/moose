@@ -14,5 +14,8 @@
     %br
     = f.file_field :attachment
 
+    %br
+    = f.select(:user_id, User.all.collect{|u| [u.username, u.id]}, :prompt => true)
+
   .actions
     = f.submit

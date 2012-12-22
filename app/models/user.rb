@@ -33,4 +33,9 @@ class User < ActiveRecord::Base
   def admin?
     return username == "admin"
   end
+
+  def to_s
+    username
+  end
+
 end

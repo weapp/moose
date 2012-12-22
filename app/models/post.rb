@@ -10,12 +10,13 @@
 #  attachment_content_type :string(255)
 #  attachment_file_size    :integer
 #  attachment_updated_at   :datetime
+#  user_id                 :integer
 #
 
 class Post < ActiveRecord::Base
   belongs_to :user
 
-  attr_accessible :text, :attachment
+  attr_accessible :text, :attachment, :user_id
 
   #has_attached_file :attachment, :styles => { :medium => "300x300>", :thumb => "100x100>" }
   has_attached_file :attachment

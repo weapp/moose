@@ -4,7 +4,15 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
+    if current_user.nil?
+      @posts = []
+    else
+      if current_user.admin?
+        @posts = Post.all
+      else
+        @posts = Post.where(user_id:current_user.id)
+      end
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -43,7 +51,7 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(params[:post])
-    @post.user = current_user
+    #@post.user = current_user
 
     respond_to do |format|
       if @post.save
