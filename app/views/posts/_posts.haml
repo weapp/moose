@@ -4,7 +4,7 @@
     - Tag.all.each do |tag|
       = tab.send tag.tag, tag.tag.humanize, tag, class: "tag"
 
-%table.posts
+.posts
   = (render collection) || "<tr><td>You have no files</td></tr>".html_safe
 
 %br

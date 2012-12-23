@@ -409,6 +409,7 @@ p.alert{
   float:right;
   position:relative;
   .gravatar{position:absolute;top:-5px;left:-30px;}
+  top:20px;
 }
 
 
@@ -416,10 +417,19 @@ p.alert{
   clear:both;
 }
 
-table.posts{
+.posts{
   width: 100%;
   .gravatar{float:left; margin: 0 .5em 0 -.5em;}
+  .post{
+    padding: 1ex 1em;
+    border:1px solid darken(#FFF, 10%);
+    margin-bottom:-1px;
+  }
+  .post:nth-child(2n){
+    background: darken(#FEFEFF, 1%);
+  }
 }
+
 
 .btn{
   padding:1.1ex 1em .9ex;
@@ -452,7 +462,7 @@ table.posts{
 
 .page{
   background:#FFF;
-  padding: .5ex 1em;
+  padding: 2ex 1em .5ex 1em;
   margin:2ex 0;
 }
 
@@ -460,26 +470,30 @@ table.posts{
 .tags .tag{display:inline-block;}
 
 .tags .tag{
-  border:1px solid darken(#DFC69E, 20%);
-  background:#DFC69E;
+  border:1px solid darken(#FFF, 10%);
+  background:#FFF;
   padding:.25ex .5em;
   font-family:Tahoma,Geneva,Kalimati,sans-serif;
   border-radius:2px;
   a{color:inherit;}
 }
 
-#nav_bar .tags .tag{
-  border-radius:10px 10px 0 0;
-  border-bottom:0 none #000;
-  a, span{
-    padding:.5ex 2em;
-    display:inline-block;
-  }
-}
+#nav_bar .tags {
 
-.tag.current{
-  border-color:lighten(darken(#DFC69E, 20%), 20%);
-  background:lighten(#DFC69E, 20%);
+  .tag{
+    border-radius:10px 10px 0 0;
+    background: darken(#FFF, 5%);
+    border-bottom:0 none #000;
+    a, span{
+      padding:.5ex 2em;
+      display:inline-block;
+    }
+  }
+
+  .tag.current{
+    background:lighten(#FFF, 20%);
+    border-bottom:1px solid transparent;
+  }
 }
 
 
@@ -517,3 +531,11 @@ table.posts{
     padding: 1ex 1em;
   }
 }
+
+.toolbox{float:right;}
+
+#logo{
+  float:left;
+}
+
+//DFC69E

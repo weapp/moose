@@ -11,8 +11,8 @@
     %tr
       %td= tag.tag
       %td= link_to 'Show', tag
-      %td= link_to 'Edit', edit_tag_path(tag)
-      %td= link_to 'Destroy', tag, method: :delete, data: { confirm: 'Are you sure?' }
+      %td= link_to (image_tag 'pencil.png'), edit_tag_path(tag)
+      %td= link_to (image_tag 'cross.png'), tag, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 
