@@ -25,24 +25,5 @@ class Post < ActiveRecord::Base
   # => ,:path => ":rails_root/uploads/:class/:id/:basename.:extension"
 
   default_scope order('created_at DESC')
-  
-  scope :by_user, lambda { |user|
-    where(:user_id => user.id) unless user.admin?
-  }
-
-
-  # default_scope do
-  #   lambda do
-  #     if current_user.nil?
-  #       where(user_id: -1)
-  #     else
-  #       if current_user.admin?
-  #         find(:all)
-  #       else
-  #         where(user_id: current_user.id)
-  #       end
-  #     end
-  #   end
-  # end
 
 end

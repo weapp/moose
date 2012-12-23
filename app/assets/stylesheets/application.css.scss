@@ -249,10 +249,6 @@ pre{
 
 
 
-
-
-
-
 body{
   color:#444;
   //font-family:Georgia, Palatino, 'Palatino Linotype', Times,
@@ -491,4 +487,33 @@ table.posts{
   background:whitesmoke;
   padding: 1ex 1em;
   text-align:right
+}
+
+.devise_footer a{
+  padding:1em;
+  display:inline-block;
+}
+
+.devise form{
+  padding: 1em;
+
+  input{
+    border:1px solid #DDD;
+    padding: 1ex 1em;
+    color: #333333;
+    font-size:1.2em;
+  }
+
+  .field_with_errors{display:inline;}
+  .field_with_errors label{color:#D43;}
+
+  #error_explanation h2{
+    font-size:1.3em;
+  }
+
+  #error_explanation{
+    border: 1px solid darken(#FED, 5%);
+    background: #FED;
+    padding: 1ex 1em;
+  }
 }

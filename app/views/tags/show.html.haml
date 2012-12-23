@@ -1,4 +1,4 @@
-= render 'posts/posts', :collection => @tag.posts.by_user(current_user)
+= render 'posts/posts', :collection => @tag.posts.accessible_by(current_ability, :read)
 
 .tag_control
   - if can? :edit, @tag
