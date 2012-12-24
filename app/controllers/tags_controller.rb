@@ -1,34 +1,24 @@
 class TagsController < ApplicationController
   load_and_authorize_resource
+  respond_to :html, :json
 
   # GET /tags
   # GET /tags.json
   def index
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @tags }
-    end
+    respond_with(@tags)
   end
 
   # GET /tags/1
   # GET /tags/1.json
   def show
     set_tab @tag.tag
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @posts }
-    end
-
-
+    respond_with(@tag)
   end
 
   # GET /tags/new
   # GET /tags/new.json
   def new
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @tag }
-    end
+    respond_with(@tag)
   end
 
   # GET /tags/1/edit

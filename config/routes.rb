@@ -5,7 +5,7 @@ Moose::Application.routes.draw do
 
   resources :posts
 
-  resources :tags, path: "/"
+  resources :tags, path: "/tags"
   
   
   # The priority is based upon order of creation:

@@ -1,32 +1,24 @@
 class PostsController < ApplicationController
   load_and_authorize_resource
+  respond_to :html, :json
 
   # GET /posts
   # GET /posts.json
   def index
     set_tab :all
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @posts }
-    end
+    respond_with(@posts)
   end
 
   # GET /posts/1
   # GET /posts/1.json
   def show
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @post }
-    end
+    respond_with(@post)
   end
 
   # GET /posts/new
   # GET /posts/new.json
   def new
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @post }
-    end
+    respond_with(@post)
   end
 
   # GET /posts/1/edit
