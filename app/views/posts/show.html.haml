@@ -1,12 +1,17 @@
--if can? :edit, @post
+.page
   .toolbox
-    = link_to (image_tag 'pencil.png'), edit_post_path(@post)
-#post.post
-  = raw sanitize mkd.render @post.text
+    = render "shared/time", object: @post
 
-  -# @post.attachment_content_type
+    -if can? :edit, @post
+      %span= link_to (image_tag 'pencil.png'), edit_post_path(@post)
 
-  - if @post.attachment.present?
+  #post.post
+    = raw sanitize mkd.render @post.text
+
+    -# @post.attachment_content_type
+
+- if @post.attachment.present?
+  .page
     .data
       %b
         Type:
@@ -21,9 +26,5 @@
       = @post.attachment_updated_at.to_formatted_s(:short)
     = link_to 'Download: ' + @post.attachment_file_name, @post.attachment.url, class: 'btn'
 
-  %ul.tags
-    - @post.tags.each do |tag|
-      %li.tag
-        #{tag.tag}
-
-\#{link_to 'Back', posts_path}
+%ul.tags
+  =render @post.tags

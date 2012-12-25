@@ -1,23 +1,18 @@
 .post.clearfix
   .toolbox
+    = render "shared/time", object: post
+
     -if can? :update, post
       %span= link_to (image_tag 'pencil.png'), edit_post_path(post)
 
     -if can? :destroy, post
       %span= link_to (image_tag 'cross.png'), post, method: :delete, data: { confirm: 'Are you sure?' }
+    
+    - if post.attachment.present?
+      .attach
+        = link_to (image_tag "paper-clip.png") + " " + post.attachment_file_name, post.attachment.url
 
   = gravatar_for post.user, size: 50
-  %a{href: (post_path post)}= truncate((strip_tags mkd.render post.text), :length => 60, :separator => ' ')
-  %br
-  (created: #{post.created_at.to_formatted_s(:short)})
-  - unless post.created_at.to_formatted_s(:short) == post.updated_at.to_formatted_s(:short)
-    (updated: #{post.updated_at.to_formatted_s(:short)})
-  - if post.attachment.present?
-    %br
-    %span.attach
-      = link_to (image_tag "paper-clip.png") + " " + post.attachment_file_name, post.attachment.url
+  %a.summary{href: (post_path post)}= truncate((strip_tags mkd.render post.text), :length => 60, :separator => ' ')
   %ul.tags
-    - post.tags.each do |tag|
-      - unless current_tab == tag.tag
-        %li.tag
-          =link_to tag.tag, tag
+    = render post.tags

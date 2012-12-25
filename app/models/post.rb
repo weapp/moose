@@ -24,6 +24,6 @@ class Post < ActiveRecord::Base
   has_attached_file :attachment
   # => ,:path => ":rails_root/uploads/:class/:id/:basename.:extension"
 
-  default_scope order('created_at DESC')
+  default_scope order('created_at DESC').includes :post_tags
 
 end

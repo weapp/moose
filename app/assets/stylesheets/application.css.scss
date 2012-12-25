@@ -258,7 +258,7 @@ body{
   //line-height:1.5em;
   width: 45em;
   margin: 10px auto;
-  background: #FAFAFA;
+  background-image: url('noise.png');
 }
 
 //a{ color: #0645ad; text-decoration:none;}
@@ -406,10 +406,10 @@ p.alert{
 }
 
 #user_nav{
-  float:right;
-  position:relative;
   .gravatar{position:absolute;top:-5px;left:-30px;}
-  top:20px;
+  bottom:5px;
+  right:0px;
+  position:absolute;
 }
 
 
@@ -419,6 +419,7 @@ p.alert{
 
 .posts{
   width: 100%;
+  background: #FFF;
   .gravatar{float:left; margin: 0 .5em 0 -.5em;}
   .post{
     padding: 1ex 1em;
@@ -426,7 +427,7 @@ p.alert{
     margin-bottom:-1px;
   }
   .post:nth-child(2n){
-    background: darken(#FEFEFF, 1%);
+    background: darken(#FEFEFF, 2%);
   }
 }
 
@@ -460,7 +461,7 @@ p.alert{
   }
 }
 
-.page{
+.page, .devise{
   background:#FFF;
   padding: 2ex 1em .5ex 1em;
   margin:2ex 0;
@@ -476,26 +477,28 @@ p.alert{
   font-family:Tahoma,Geneva,Kalimati,sans-serif;
   border-radius:2px;
   a{color:inherit;}
+  margin-top:1ex;
 }
 
-#nav_bar .tags {
+#nav_bar{
+  margin-top: 3ex; 
+  .tags {
+    .tag{
+      border-radius:10px 10px 0 0;
+      background: darken(#FFF, 5%);
+      border-bottom:0 none #000;
+      a, span{
+        padding:.5ex 2em;
+        display:inline-block;
+      }
+    }
 
-  .tag{
-    border-radius:10px 10px 0 0;
-    background: darken(#FFF, 5%);
-    border-bottom:0 none #000;
-    a, span{
-      padding:.5ex 2em;
-      display:inline-block;
+    .tag.current{
+      background:lighten(#FFF, 20%);
+      border-bottom:1px solid transparent;
     }
   }
-
-  .tag.current{
-    background:lighten(#FFF, 20%);
-    border-bottom:1px solid transparent;
-  }
 }
-
 
 .actions{
   background:whitesmoke;
@@ -506,6 +509,11 @@ p.alert{
 .devise_footer a{
   padding:1em;
   display:inline-block;
+}
+
+.devise_footer{
+  padding-left: .5em;
+  margin:2ex 0;
 }
 
 .devise form{
@@ -532,10 +540,30 @@ p.alert{
   }
 }
 
-.toolbox{float:right;}
-
-#logo{
-  float:left;
+.toolbox{
+  float:right;
+  text-align:right;
 }
 
+#header{
+  height:40px;
+  position:relative;
+}
+
+#logo{
+  position:absolute;
+  bottom:0px;
+  left:0px;
+}
+
+.attach{
+  margin-top:.5ex;
+}
+
+.summary{
+  width:360px;
+  display:block;
+  overflow:hidden;
+  text-overflow: ellipsis;
+}
 //DFC69E

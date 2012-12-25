@@ -4,5 +4,5 @@
   - if can? :edit, @tag
     %b Tag:
     = @tag.tag
-    = link_to 'Edit', edit_tag_path(@tag)
+    = link_to (image_tag 'pencil.png'), edit_tag_path(@tag)
   

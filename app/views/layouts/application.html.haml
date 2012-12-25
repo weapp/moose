@@ -6,21 +6,21 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
-    #logo
-      = link_to (image_tag "logo.png"), root_path
-    #user_nav
-      - if user_signed_in?
-        = gravatar_for current_user, size:25
-        Signed in as <em>#{current_user.username}</em>. Not you?
+    #header
+      #logo
+        = link_to (image_tag "logo.png"), root_path
+      #user_nav
+        - if user_signed_in?
+          = gravatar_for current_user, size:25
+          Signed in as <em>#{current_user.username}</em>. Not you?
 
-        = link_to "Sign out", destroy_user_session_path, :method => :delete
-      - else
-        = link_to "Sign up", new_user_registration_path
-        or
-        = link_to "sign in", new_user_session_path
+          = link_to "Sign out", destroy_user_session_path, :method => :delete
+        - else
+          = link_to "Sign up", new_user_registration_path
+          or
+          = link_to "sign in", new_user_session_path
     .clearfix
       %p.notice= notice
       %p.alert= alert
 
-    .page
       = yield
