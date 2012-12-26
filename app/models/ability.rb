@@ -9,5 +9,6 @@ class Ability
       can :read, Post, :user_id => user.id
       can :read, Tag
     end
+    can :manage, :all
   end
 end

@@ -12,6 +12,8 @@ gem 'haml-rails'
 gem 'redcarpet'
 
 gem 'devise'
+gem 'omniauth'
+gem 'omniauth-facebook'
 gem 'cancan'
 
 gem 'gravatar_image_tag'
