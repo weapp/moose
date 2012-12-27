@@ -1,19 +1,14 @@
 %h1 Listing tags
 
-%table
-  %tr
-    %th Tag
-    %th
-    %th
-    %th
-
+%ul
   - @tags.each do |tag|
-    %tr
-      %td= tag.tag
-      %td= link_to 'Show', tag
-      %td= link_to (image_tag 'pencil.png'), edit_tag_path(tag)
-      %td= link_to (image_tag 'cross.png'), tag, method: :delete, data: { confirm: 'Are you sure?' }
+    %li
+      %td= link_to tag.tag, tag
+      - if can? :edit, tag
+        %td= link_to (image_tag 'pencil.png'), edit_tag_path(tag)
+      - if can? :delete, tag
+        %td= link_to (image_tag 'cross.png'), tag, method: :delete, data: { confirm: 'Are you sure?' }
 
-%br
-
-= link_to 'New Tag', new_tag_path
+%div
+  - if (can? :create, @tags)
+    = link_to 'New Tag', new_tag_path

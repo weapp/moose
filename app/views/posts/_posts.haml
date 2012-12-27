@@ -1,7 +1,7 @@
 #nav_bar
   = tabs_tag open_tabs: {class: "tags"} do |tab|
     = tab.all 'all', root_path, class: "tag"
-    - Tag.all.each do |tag|
+    - Tag.accessible_by(current_ability, :read).uniq.each do |tag|
       = tab.send tag.tag, tag.tag.humanize, tag, class: "tag"
 
 .posts

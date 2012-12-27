@@ -5,6 +5,7 @@ class TagsController < ApplicationController
   # GET /tags
   # GET /tags.json
   def index
+    @tags = @tags.uniq
     respond_with(@tags)
   end
 
