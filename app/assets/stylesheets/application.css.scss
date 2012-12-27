@@ -422,10 +422,23 @@ p.alert{
   background: #FFF;
   .gravatar{float:left; margin: 0 .5em 0 -.5em;}
   .post{
+    position:relative;
     padding: 1ex 1em;
     border:1px solid darken(#FFF, 10%);
     margin-bottom:-1px;
+    min-height:5ex;
+    .empty{
+      text-align:center;
+      font-size:150%;
+      padding:1ex 1em;
+      background: $blue;
+      border:1px solid darken($blue, 9%);
+      color:#FFF;
+      margin:1ex;
+      opacity:.5;
+    }
   }
+
   .post:nth-child(2n){
     background: darken(#FEFEFF, 2%);
   }
@@ -465,6 +478,10 @@ p.alert{
   background:#FFF;
   padding: 2ex 1em .5ex 1em;
   margin:2ex 0;
+
+  .page{
+    box-shadow:inset 0px 10px 20px -10px darken(#FFF, 5%);
+  }
 }
 
 .tags{padding:0;margin:0;}
@@ -481,7 +498,9 @@ p.alert{
 }
 
 #nav_bar{
-  margin-top: 3ex; 
+  margin: 3ex 0 -1px;
+  position:relative;
+  z-index:2;
   .tags {
     .tag{
       border-radius:10px 10px 0 0;
@@ -567,3 +586,51 @@ p.alert{
   text-overflow: ellipsis;
 }
 //DFC69E
+
+.headertext{
+  padding:3ex 0 0;
+}
+
+.posts{
+  width: 100%;
+  background: #FFF;
+  ._gravatar{float:left; margin: 0 .5em 0 -.5em;}
+  .post{
+    position:relative;
+    padding: 1ex 1em;
+    border:1px solid darken(#FFF, 10%);
+    margin-bottom:-1px;
+  }
+  .post:nth-child(2n){
+    background: darken(#FEFEFF, 2%);
+  }
+}
+
+
+.owner{
+  position:relative;
+  width:0;
+  .name{
+    white-space:nowrap;
+    position:absolute;
+    right:1em;
+    top:-1ex;
+    margin-top:-1px;
+    background:#FFF;
+    padding:5px;
+    border:1px solid darken(#FFF, 10%);
+    border-right-width:0px;
+  }
+  .gravatar{
+    display:inline;
+    float:left;
+    margin: 0 .5em 0 0;
+  }
+  .updated{
+    display:block;
+  }
+}
+
+.post:nth-child(2n) .owner .name{
+  background: darken(#FEFEFF, 2%);
+}

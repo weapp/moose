@@ -1,5 +1,7 @@
-= image_tag "clock.png"
-= object.created_at.to_date.to_formatted_s(:short)
+%span.created
+  = image_tag "clock.png"
+  = object.created_at.to_date.to_formatted_s(:short)
 - unless object.created_at.to_date.to_formatted_s(:short) == object.updated_at.to_date.to_formatted_s(:short)
-  = image_tag "arrow-circle.png"
-  = object.updated_at.to_date.to_formatted_s(:short)
+  %span.updated
+    = image_tag "arrow-circle.png"
+    = object.updated_at.to_date.to_formatted_s(:short)

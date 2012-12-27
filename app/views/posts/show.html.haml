@@ -1,9 +1,13 @@
-.page
+.headertext.clearfix
   .toolbox
     = render "shared/time", object: @post
 
     -if can? :edit, @post
       %span= link_to (image_tag 'pencil.png'), edit_post_path(@post)
+  -if current_user.admin?
+    Shared with: 
+    = @post.user
+.page
 
   #post.post
     = raw sanitize mkd.render @post.text
@@ -11,20 +15,20 @@
     -# @post.attachment_content_type
 
 - if @post.attachment.present?
-  .page
-    .data
-      %b
-        Type:
-      = @post.attachment_content_type
-    .data
-      %b
-        Size:
+  %center.page
+    %a.btn{href: @post.attachment.url}
+      = icon_for @post, size: 22
+      = @post.attachment_file_name
+      %br
       = number_to_human_size(@post.attachment_file_size)
     .data
       %b
         Upadated at:
       = @post.attachment_updated_at.to_formatted_s(:short)
-    = link_to 'Download: ' + @post.attachment_file_name, @post.attachment.url, class: 'btn'
+    %br
 
-%ul.tags
-  =render @post.tags
+- if @post.tags.present?
+  %b
+    Tags:
+  %ul.tags
+    =render @post.tags

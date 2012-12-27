@@ -7,4 +7,12 @@ module ApplicationHelper
     gravatar_image_tag user.try(:email).try(:downcase), alt: user.try(:username), class: 'gravatar', gravatar: options
   end
 
+  def icon_for(row, options={size:16})
+    file = "icon#{options[:size]}/#{row.attachment_content_type.gsub('/','-')}.png"
+    if Rails.application.assets.find_asset file
+      image_tag file
+    else
+      image_tag "paper-clip.png"
+    end
+  end
 end

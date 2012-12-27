@@ -5,7 +5,7 @@
       = tab.send tag.tag, tag.tag.humanize, tag, class: "tag"
 
 .posts
-  = (render collection) || "<tr><td>You have no files</td></tr>".html_safe
+  = (render collection) || "<div class='post empty'><div class='empty'>No files here</div></div>".html_safe
 
 %br
 -if can? :create, :post

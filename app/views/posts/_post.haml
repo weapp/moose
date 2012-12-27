@@ -1,18 +1,19 @@
 .post.clearfix
   .toolbox
-    = render "shared/time", object: post
-
     -if can? :update, post
       %span= link_to (image_tag 'pencil.png'), edit_post_path(post)
 
     -if can? :destroy, post
       %span= link_to (image_tag 'cross.png'), post, method: :delete, data: { confirm: 'Are you sure?' }
-    
-    - if post.attachment.present?
-      .attach
-        = link_to (image_tag "paper-clip.png") + " " + post.attachment_file_name, post.attachment.url
 
-  = gravatar_for post.user, size: 50
+    - if post.attachment.present?
+      .attach= link_to (icon_for post) + " " + truncate(post.attachment_file_name, :length => 20), post.attachment.url
+
+  - if current_user.admin?
+    .owner
+      .name
+        = gravatar_for post.user, size: 20
+        = post.user
+
   %a.summary{href: (post_path post)}= truncate((strip_tags mkd.render post.text), :length => 60, :separator => ' ')
-  %ul.tags
-    = render post.tags
+  %ul.tags= render post.tags
