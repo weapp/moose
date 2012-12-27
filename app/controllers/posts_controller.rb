@@ -28,7 +28,7 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @post.user = current_user if params[:post][:user_id].empty?
+    @post.user = current_user unless params[:post][:user_id].present?
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }

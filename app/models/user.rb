@@ -37,6 +37,10 @@ class User < ActiveRecord::Base
     return username == "admin"
   end
 
+  def role
+    return admin? ? :admin : :default
+  end
+
   def to_s
     username
   end

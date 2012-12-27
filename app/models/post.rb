@@ -18,7 +18,7 @@ class Post < ActiveRecord::Base
   has_many :post_tags
   has_many :tags, through: :post_tags
 
-  attr_accessible :text, :attachment, :user_id, :tag_ids
+  attr_accessible :text, :attachment, :tag_ids, :user_id
 
   #has_attached_file :attachment, :styles => { :medium => "300x300>", :thumb => "100x100>" }
   has_attached_file :attachment

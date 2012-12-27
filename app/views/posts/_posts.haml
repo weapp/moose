@@ -8,7 +8,7 @@
   = (render collection) || "<div class='post empty'><div class='empty'>No files here</div></div>".html_safe
 
 %br
--if can? :create, :post
+-if can? :create, Post
   %form{action: new_post_path}
     .toolbox
       %button.btn New Post
