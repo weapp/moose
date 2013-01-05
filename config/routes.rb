@@ -3,11 +3,13 @@ Moose::Application.routes.draw do
   devise_scope :user do
     get 'sign_in', :to => 'devise/sessions#new', :as => :new_user_session
     get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
-    get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
+    get '/auth/:provider' => 'users/omniauth_callbacks#passthru'
   end
 
+  resources :tags, path: "tagged"
+
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-  resources :users, :only => [:show] do
+  resources :users, :only => [:show], path: "" do
     resources :posts, path: "", :except => [:index] do
       collection do
         match 'all' => :index, :as => :all
@@ -16,8 +18,6 @@ Moose::Application.routes.draw do
     end
   end
   
-  resources :tags, path: "tagged"
-
   authenticated do
     root :to => "posts#dashboard"
     # root :to => 'teachers/dashboards#show', :constraints => lambda{ |req| req.session['warden.user.user.key'][0] == 'Teacher' }

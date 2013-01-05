@@ -7,7 +7,7 @@ class Ability
       can :manage, :all
     elsif !user.new_record?
       can :read, User, :id => user.id
-      can [:read, :dashboard], Post, :user_id => user.id
+      can [:read, :dashboard, :tag], Post, :user_id => user.id
       #can :create, Post, :user_id => user.id
       can :read, Tag, :posts => {:user_id => user.id}
     end
