@@ -42,6 +42,10 @@ es:
     oauth_callbacks:
       success: 'Ha sido autorizado satisfactoriamente de la cuenta %{kind}.'
       failure: 'No ha sido autorizado en la cuenta %{kind} porque "%{reason}".'
+    omniauth_callbacks:
+      user:
+        success: 'Ha sido autorizado satisfactoriamente de la cuenta %{kind}.'
+        failure: 'No pudo ser autorizado desde %{kind} porque "%{reason}"'
     mailer:
       confirmation_instructions:
         subject: 'Instrucciones de confirmación'

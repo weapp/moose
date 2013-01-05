@@ -48,24 +48,29 @@ class User < ActiveRecord::Base
     username
   end
 
-  def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
-    user = User.where(provider: auth.provider, uid: auth.uid).first
-    unless user
-      user = User.where(email: auth.info.email).first
-      if user
-        user.update_attributes(provider: auth.provider, uid: auth.uid)
-        user.save
-      else
-        user = User.create(
-                             username:auth.extra.raw_info.name,
-                             provider:auth.provider,
-                             uid:auth.uid,
-                             email:auth.info.email,
-                             password:Devise.friendly_token[0,20]
-                             )
-      end
+  def self.find_for_oatuh_uid(auth)
+    User.where(provider: auth.provider, uid: auth.uid).first
+  end
+
+  def self.find_for_oauth_mail(auth)
+    user = User.where(email: auth.info.email).first
+    if user
+      user.update_attributes(provider: auth.provider, uid: auth.uid)
+      user.save
     end
     user
+  end
+
+  def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
+    user = User.find_for_oatuh_uid(auth) || User.find_for_oauth_mail(auth)
+    user ||= User.create(
+                         username: auth.extra.raw_info.name,
+                         provider: auth.provider,
+                         uid: auth.uid,
+                         email: auth.info.email,
+                         password: Devise.friendly_token[0,20]
+                         )
+  
   end
 
 
