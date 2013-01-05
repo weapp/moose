@@ -1,0 +1,15 @@
+.page
+
+  = link_to "Posts of #{@user}", user_posts_path(@user)
+
+.page
+  %pre
+    = preserve do
+      id:                      #{@user.id}
+      username:                #{@user.username}
+      email:                   #{@user.email}
+      last_login:              #{@user.current_sign_in_at.to_s(:db) }
+      
+      provider:                #{@user.provider}
+      uid:                     #{@user.uid}
+

@@ -6,7 +6,8 @@ class Ability
     if user.admin?
       can :manage, :all
     elsif !user.new_record?
-      can :read, Post, :user_id => user.id
+      can :read, User, :id => user.id
+      can [:read, :dashboard], Post, :user_id => user.id
       #can :create, Post, :user_id => user.id
       can :read, Tag, :posts => {:user_id => user.id}
     end

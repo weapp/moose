@@ -1,3 +1,3 @@
 %h2 New post
 = render 'form'
-= link_to 'Back', posts_path
+= link_to 'Back', (user_posts_path (params[:id] || current_user))

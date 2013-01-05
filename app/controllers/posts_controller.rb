@@ -1,10 +1,19 @@
 class PostsController < ApplicationController
-  load_and_authorize_resource
+
+  load_and_authorize_resource :user, except: :dashboard
+  load_and_authorize_resource :post, :through => :user, except: :dashboard
+  load_and_authorize_resource :post, only: :dashboard
+
   respond_to :html, :json
 
   # GET /posts
   # GET /posts.json
   def index
+    set_tab :all
+    respond_with(@posts)
+  end
+
+  def dashboard
     set_tab :all
     respond_with(@posts)
   end

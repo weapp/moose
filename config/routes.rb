@@ -1,5 +1,5 @@
 Moose::Application.routes.draw do
-  
+
   devise_scope :user do
     get 'sign_in', :to => 'devise/sessions#new', :as => :new_user_session
     get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
@@ -7,14 +7,26 @@ Moose::Application.routes.draw do
   end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  resources :users, :only => [:show] do
+    resources :posts
+    resources :tags
+  end
 
-  root to: "posts#index"
-
-  resources :posts
-
-  resources :tags, path: "/tags"
+  resources :posts, :only => [:new, :index]
   
-  
+  resources :tags
+
+  authenticated do
+    root :to => "posts#dashboard"
+    # root :to => 'teachers/dashboards#show', :constraints => lambda{ |req| req.session['warden.user.user.key'][0] == 'Teacher' }
+    # root :to => 'students/dashboards#show', :constraints => lambda{ |req| req.session['warden.user.user.key'][0] == 'Student' }
+  end
+
+  devise_scope :user do
+    root :to => "devise/sessions#new"
+  end    
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

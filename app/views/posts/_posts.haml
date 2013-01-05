@@ -1,8 +1,19 @@
 #nav_bar
   = tabs_tag open_tabs: {class: "tags"} do |tab|
-    = tab.all 'all', root_path, class: "tag"
+    - if (params[:controller] == "users")
+      = tab.all 'all', @users, class: "tag"
+    - elsif (!params[:user_id].nil?)
+      = tab.all @user, user_path(@user), class: "tag"
+    - else 
+      = tab.all 'all', root_path, class: "tag"
     - Tag.accessible_by(current_ability, :read).uniq.each do |tag|
-      = tab.send tag.tag, tag.tag.humanize, tag, class: "tag"
+      - if (params[:controller] == "users")
+        =# tab.send tag.tag, tag.tag.humanize, user_tag_path(@user, tag), class: "tag"
+      - elsif (!params[:user_id].nil?)
+        =# tab.send tag.tag, tag.tag.humanize, user_tag_path(params[:user_id], tag), class: "tag"
+      - else 
+        = tab.send tag.tag, tag.tag.humanize, tag_path(tag), class: "tag"
+
 
 .posts
   = (render collection) || "<div class='post empty'><div class='empty'>No files here</div></div>".html_safe

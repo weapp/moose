@@ -1,5 +1,8 @@
 class TagsController < ApplicationController
   load_and_authorize_resource
+  #load_and_authorize_resource :tag, :through => :user
+
+
   respond_to :html, :json
 
   # GET /tags

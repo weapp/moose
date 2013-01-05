@@ -1,10 +1,10 @@
 .post.clearfix
   .toolbox
     -if can? :update, post
-      %span= link_to (image_tag 'pencil.png'), edit_post_path(post)
+      %span= link_to (image_tag 'pencil.png'), edit_user_post_path(post.user, post)
 
     -if can? :destroy, post
-      %span= link_to (image_tag 'cross.png'), post, method: :delete, data: { confirm: 'Are you sure?' }
+      %span= link_to (image_tag 'cross.png'), [post.user, post], method: :delete, data: { confirm: 'Are you sure?' }
 
     - if post.attachment.present?
       .attach= link_to (icon_for post) + " " + truncate(post.attachment_file_name, :length => 20), post.attachment.url
@@ -13,7 +13,7 @@
     .owner
       .name
         = gravatar_for post.user, size: 20
-        = post.user
+        = link_to post.user, user_path(post.user)
 
-  %a.summary{href: (post_path post)}= truncate((strip_tags mkd.render post.text), :length => 60, :separator => ' ')
+  %a.summary{href: (user_post_path post.user, post)}= truncate((strip_tags mkd.render post.text), :length => 60, :separator => ' ')
   %ul.tags= render post.tags
