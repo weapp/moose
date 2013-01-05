@@ -8,13 +8,15 @@ Moose::Application.routes.draw do
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   resources :users, :only => [:show] do
-    resources :posts
-    resources :tags
+    resources :posts, path: "", :except => [:index] do
+      collection do
+        match 'all' => :index, :as => :all
+        match 'tagged/:tag' => :tag, :as => :tag
+      end
+    end
   end
-
-  resources :posts, :only => [:new, :index]
   
-  resources :tags
+  resources :tags, path: "tagged"
 
   authenticated do
     root :to => "posts#dashboard"

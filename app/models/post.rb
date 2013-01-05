@@ -24,6 +24,9 @@ class Post < ActiveRecord::Base
   has_attached_file :attachment
   # => ,:path => ":rails_root/uploads/:class/:id/:basename.:extension"
 
-  default_scope order('created_at DESC').includes :post_tags
+  default_scope order('posts.created_at DESC').includes :tags
+  
+  scope :tagged, lambda { |tag| where('tags.tag' => tag) }
+  
 
 end

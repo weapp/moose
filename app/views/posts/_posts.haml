@@ -1,16 +1,13 @@
 #nav_bar
   = tabs_tag open_tabs: {class: "tags"} do |tab|
-    - if (params[:controller] == "users")
-      = tab.all 'all', @users, class: "tag"
-    - elsif (!params[:user_id].nil?)
-      = tab.all @user, user_path(@user), class: "tag"
+    - unless (params[:user_id].nil?)
+      = tab.all "All of #{@user}".humanize, all_user_posts_path(@user), class: "tag"
     - else 
       = tab.all 'all', root_path, class: "tag"
+
     - Tag.accessible_by(current_ability, :read).uniq.each do |tag|
-      - if (params[:controller] == "users")
-        =# tab.send tag.tag, tag.tag.humanize, user_tag_path(@user, tag), class: "tag"
-      - elsif (!params[:user_id].nil?)
-        =# tab.send tag.tag, tag.tag.humanize, user_tag_path(params[:user_id], tag), class: "tag"
+      - unless (params[:user_id].nil?)
+        = tab.send tag.tag, tag.tag.humanize, tag_user_posts_path(params[:user_id], tag), class: "tag"
       - else 
         = tab.send tag.tag, tag.tag.humanize, tag_path(tag), class: "tag"
 
@@ -20,14 +17,14 @@
 
 %br
 -if can? :create, Post
-  %form{action: new_post_path}
+  %form{action: new_user_post_path(current_user)}
     .toolbox
       %button.btn New Post
 
 .toolbox
   &nbsp;
 
--if can? :manage, :tags
+-if can? :manage, Tag
   %form{action: tags_path}
     .toolbox
       %button.btn Manage tags

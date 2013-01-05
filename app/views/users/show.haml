@@ -1,6 +1,6 @@
-.page
-
-  = link_to "Posts of #{@user}", user_posts_path(@user)
+= link_to "Posts of #{@user}", all_user_posts_path(@user)
+|
+= link_to "Profile of #{@user}", user_posts_path(@user)
 
 .page
   %pre

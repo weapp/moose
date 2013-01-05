@@ -74,4 +74,10 @@ class PostsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def tag
+    set_tab params[:tag]
+    @posts = @posts.tagged(params[:tag])
+    render 'index'
+  end
 end
