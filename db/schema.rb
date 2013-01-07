@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121225225623) do
+ActiveRecord::Schema.define(:version => 20130107200420) do
 
   create_table "post_tags", :force => true do |t|
     t.integer  "post_id"
@@ -38,6 +38,12 @@ ActiveRecord::Schema.define(:version => 20121225225623) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "roles", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "tags", :force => true do |t|
     t.string   "tag"
     t.datetime "created_at", :null => false
@@ -60,6 +66,7 @@ ActiveRecord::Schema.define(:version => 20121225225623) do
     t.string   "username"
     t.string   "provider"
     t.string   "uid"
+    t.integer  "role_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

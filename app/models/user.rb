@@ -16,12 +16,16 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  username               :string(255)
+#  provider               :string(255)
+#  uid                    :string(255)
+#  role_id                :integer
 #
 
 class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :username
 
+  belongs_to :role
   has_many :posts
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -31,6 +35,7 @@ class User < ActiveRecord::Base
          :omniauthable
 
 
+  before_create :set_default_role
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me, :provider, :uid
@@ -81,5 +86,11 @@ class User < ActiveRecord::Base
       end
     end
   end
+
+
+  private
+    def set_default_role
+      self.role ||= Role.find_by_name('registered')
+    end
 
 end
