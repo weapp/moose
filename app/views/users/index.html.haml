@@ -1,0 +1,21 @@
+%h1 Users
+
+= link_to "All Users", :action => "index"
+
+- Role.all.each do |role|
+  |
+  = link_to role.name.pluralize.humanize, :action => "index", :role => role.name
+  = # link_to "Users awaiting approval", :action => "index", :approved => "false"
+
+%p
+
+  %table
+    %tr
+      %th user
+      %th role
+      %th Edit
+    - @users.each do |user|
+      %tr
+        %td= user
+        %td= user.role
+        %td= link_to "Edit", edit_user_path(user)

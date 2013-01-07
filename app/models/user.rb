@@ -37,20 +37,38 @@ class User < ActiveRecord::Base
 
   before_create :set_default_role
 
+  scope :with_role, lambda { |role| includes(:role).where('roles.name' => role) }
+
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me, :provider, :uid
   # attr_accessible :title, :body
 
   def admin?
-    return username == "admin"
+    role.try(:name) == "admin"
   end
 
-  def role
-    return admin? ? :admin : :default
+  def approved?
+    !!approved
+  end
+
+  def approved
+    role.try(:name) != "unapproved"
+  end
+
+  def active_for_authentication? 
+    super && approved? 
+  end 
+
+  def inactive_message 
+    if !approved? 
+      :not_approved 
+    else 
+      super # Use whatever other message 
+    end 
   end
 
   def to_s
-    username
+    "#{username} <#{email}>"
   end
 
   def self.find_for_oatuh_uid(auth)
@@ -74,10 +92,8 @@ class User < ActiveRecord::Base
                          uid: auth.uid,
                          email: auth.info.email,
                          password: Devise.friendly_token[0,20]
-                         )
-  
+                         )  
   end
-
 
   def self.new_with_session(params, session)
     super.tap do |user|
@@ -87,6 +103,15 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.send_reset_password_instructions(attributes={})
+    recoverable = find_or_initialize_with_errors(reset_password_keys, attributes, :not_found)
+    if !recoverable.approved?
+      recoverable.errors[:base] << I18n.t("devise.failure.not_approved")
+    elsif recoverable.persisted?
+      recoverable.send_reset_password_instructions
+    end
+    recoverable
+  end
 
   private
     def set_default_role

@@ -19,6 +19,7 @@ es:
       invalid_token: 'Token de autenticación incorrecto.'
       timeout: 'Su sesión ha expirado, por favor acceda de nuevo para continuar.'
       inactive: 'Su cuenta no ha sido activada.'
+      not_approved: 'Your account has not been approved by your administrator yet.'
     sessions:
       signed_in: 'Le ha conectado correctamente.'
       signed_out: 'Ha salido correctamente.'
@@ -35,6 +36,8 @@ es:
       inactive_signed_up: 'Le ha registrado correctamente. Sin embargo, no está conectado todavía porque su cuenta está %{reason}.'
       updated: 'Ha actualizado su cuenta correctamente.'
       destroyed: '¡Hasta luego! Su cuenta ha sido cancelada. Esperamos verle pronto.'
+      user:
+        signed_up_but_not_approved: 'You have signed up successfully but your account has not been approved by your administrator yet'
     unlocks:
       send_instructions: 'Recibirá un email con instrucciones para desbloquear su cuenta en pocos minutos.'
       unlocked: 'Su cuenta ha sido desbloqueada. Ya ha accedido a su cuenta.'
