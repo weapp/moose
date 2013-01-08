@@ -1,6 +1,9 @@
 = link_to "Posts of #{@user}", all_user_posts_path(@user)
 |
 = link_to "Profile of #{@user}", user_posts_path(@user)
+-if can? :edit, @user
+  |
+  = link_to "Edit #{@user}", edit_user_path(@user)
 
 .page
   %pre
@@ -8,10 +11,10 @@
       id:                      #{@user.id}
       username:                #{@user.username}
       email:                   #{@user.email}
-      last_login:              #{@user.current_sign_in_at.to_s(:db) }
+      last_login:              #{@user.current_sign_in_at.try(:to_s, :db)}
       
       provider:                #{@user.provider}
       uid:                     #{@user.uid}
 
-      role:                    #{@user.role.name}
+      role:                    #{@user.auth}
 

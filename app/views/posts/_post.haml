@@ -9,7 +9,7 @@
     - if post.attachment.present?
       .attach= link_to (icon_for post) + " " + truncate(post.attachment_file_name, :length => 20), post.attachment.url
 
-  - if current_user.admin?
+  - if ['admin', 'read-all-write-one'].include?(current_user.auth)
     .owner
       .name
         = gravatar_for post.user, size: 20

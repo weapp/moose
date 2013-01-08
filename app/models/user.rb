@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
 
   def admin?
-    role.try(:name) == "admin"
+    auth == "admin"
   end
 
   def approved?
@@ -52,7 +52,11 @@ class User < ActiveRecord::Base
   end
 
   def approved
-    role.try(:name) != "unapproved"
+    auth != "unapproved"
+  end
+
+  def auth
+    @auth ||= role.try(:name)
   end
 
   def active_for_authentication? 
@@ -68,7 +72,8 @@ class User < ActiveRecord::Base
   end
 
   def to_s
-    "#{username} <#{email}>"
+    #"#{username} <#{email}>"
+    "#{username}"
   end
 
   def self.find_for_oatuh_uid(auth)

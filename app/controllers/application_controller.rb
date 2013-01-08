@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   def current_role
     user = current_user || User.new
-    user.role
+    user.auth
   end
 
   rescue_from CanCan::AccessDenied do |exception|

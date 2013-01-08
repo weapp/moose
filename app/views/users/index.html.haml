@@ -17,5 +17,5 @@
     - @users.each do |user|
       %tr
         %td= user
-        %td= user.role
+        %td= user.auth
         %td= link_to "Edit", edit_user_path(user)

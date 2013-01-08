@@ -17,10 +17,11 @@
       %br
       = f.file_field :attachment
 
-    %p
-      = f.label :user_id, "User"
-      %br
-      = f.select(:user_id, User.all.collect{|u| [u.username, u.id]}, :prompt => true)
+    - if current_user.admin?
+      %p
+        = f.label :user_id, "User"
+        %br
+        = f.select(:user_id, User.all.collect{|u| [u.username, u.id]}, :prompt => true)
 
     %p
       Tags

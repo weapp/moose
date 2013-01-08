@@ -55,7 +55,7 @@ class PostsController < ApplicationController
     params[:post][:tag_ids] ||= []
     respond_to do |format|
       if @post.update_attributes(params[:post])
-        format.html { redirect_to [@user, @post], notice: 'Post was successfully updated.' }
+        format.html { redirect_to [@post.user, @post], notice: 'Post was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
