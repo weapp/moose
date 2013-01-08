@@ -92,7 +92,7 @@ class User < ActiveRecord::Base
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = User.find_for_oatuh_uid(auth) || User.find_for_oauth_mail(auth)
     user ||= User.create(
-                         username: auth.extra.raw_info.name,
+                         username: auth.info.nickname.gsub(".", "-"),
                          provider: auth.provider,
                          uid: auth.uid,
                          email: auth.info.email,
@@ -100,10 +100,22 @@ class User < ActiveRecord::Base
                          )  
   end
 
+  def self.find_for_github_oauth(auth, signed_in_resource=nil)
+    user = User.find_for_oatuh_uid(auth) || User.find_for_oauth_mail(auth)
+    user ||= User.create(
+                         username: auth.info.nickname.gsub(".", "-"),
+                         provider: auth.provider,
+                         uid: auth.uid,
+                         email: auth.info.email,
+                         password: Devise.friendly_token[0,20]
+                         )
+  end
+
   def self.new_with_session(params, session)
     super.tap do |user|
-      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+      if data = session["devise.oauth_data"]
         user.email = data["email"] if user.email.blank?
+        user.username = data["nickname"] if user.username.blank?
       end
     end
   end

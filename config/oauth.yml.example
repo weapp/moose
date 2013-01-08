@@ -1,0 +1,23 @@
+development:
+  facebook:
+    id: app_id
+    secret: secret_id
+  github:
+    id: app_id
+    secret: secret_id
+
+test:
+  facebook:
+    id: app_id
+    secret: secret_id
+  github:
+    id: app_id
+    secret: secret_id
+
+production:
+  facebook:
+    id: app_id
+    secret: secret_id
+  github:
+    id: app_id
+    secret: secret_id
