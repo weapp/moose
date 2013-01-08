@@ -1,6 +1,6 @@
 %h1 Users
 
-= link_to "All Users", :action => "index"
+= link_to "All Users", :action => "index", :role => nil
 
 - Role.all.each do |role|
   |
