@@ -11,7 +11,7 @@ Moose::Application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   resources :users, :only => [:show, :update], path: "" do
     match 'all' => :index, :as => :all, on: :collection
-    match 'all/:role' => :index, :as => :all, on: :collection
+    match 'all/:role' => :index, on: :collection
     match 'edit' => :edit, :as => :edit, on: :member
     resources :posts, path: "", :except => [:index] do
       collection do
