@@ -21,7 +21,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       session["devise.oauth_data"] = request.env["omniauth.auth"]["info"]
       redirect_to new_user_registration_url
     end
-    redirect_to new_user_registration_url
   end
 
   def google_oauth2
@@ -33,7 +32,17 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       session["devise.oauth_data"] = request.env["omniauth.auth"]["info"]
       redirect_to new_user_registration_url
     end
-    redirect_to new_user_registration_url
+  end
+
+  def twitter
+    @user = User.find_for_twitter_oauth(request.env["omniauth.auth"], current_user)
+    if @user.persisted?
+      sign_in_and_redirect @user, :event => :authentication #this will throw if @user is not activated
+      set_flash_message(:notice, :success, :kind => "twitter") if is_navigational_format?
+    else
+      session["devise.oauth_data"] = request.env["omniauth.auth"]["info"]
+      redirect_to new_user_registration_url
+    end
   end
 
   def passthru

@@ -16,7 +16,7 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-github'
 gem 'omniauth-google-oauth2'
-#gem 'omniauth-twitter'
+gem 'omniauth-twitter'
 gem 'cancan'
 
 gem 'gravatar_image_tag'
