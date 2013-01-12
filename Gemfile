@@ -10,6 +10,7 @@ gem 'paperclip'
 
 gem 'haml-rails'
 gem 'redcarpet'
+gem 'pdfkit', :git => 'git://github.com/pdfkit/pdfkit.git'
 
 gem 'devise'
 gem 'omniauth'

@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/pdfkit/pdfkit.git
+  revision: d7690c4f58ca73c77ffe3c3d78e964d8d437909e
+  specs:
+    pdfkit (0.5.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -180,6 +186,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   omniauth-twitter
   paperclip
+  pdfkit!
   rails (= 3.2.8)
   redcarpet
   sass-rails (~> 3.2.3)
