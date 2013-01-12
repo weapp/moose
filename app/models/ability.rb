@@ -3,7 +3,7 @@ class Ability
 
   def initialize(user)
 
-    alias_action  :index, :show, :read, :dashboard, :tag, :to => :read_post
+    alias_action  :index, :show, :read, :dashboard, :tag, :printable, :to=> :read_post
 
     user ||= User.new # guest user (not logged in)
     if user.admin?

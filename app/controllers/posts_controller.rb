@@ -18,9 +18,30 @@ class PostsController < ApplicationController
     respond_with(@posts)
   end
 
+  def printable
+    render :layout => "pdf"
+  end
+
   # GET /posts/1
   # GET /posts/1.json
   def show
+=begin
+
+    respond_to do |format|
+      format.html
+
+       format.pdf {
+          html = render_to_string(:layout => false )
+          kit = PDFKit.new(html)
+          #kit.stylesheets << "http://moose.batkiwi.com/assets/application.css"
+          #kit.stylesheets << "#{Rails.root}/public/stylesheets/views/pdf.css"
+          send_data(kit.to_pdf, :filename => "some_name.pdf", :type => 'application/pdf', :disposition => 'inline')
+          return # to avoid double render call
+        }
+
+    end
+=end
+
     respond_with(@post)
   end
 

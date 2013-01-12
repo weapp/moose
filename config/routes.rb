@@ -18,6 +18,9 @@ Moose::Application.routes.draw do
         match 'all' => :index, :as => :all
         match 'tagged/:tag' => :tag, :as => :tag
       end
+      member do
+        get 'printable' => :printable, :as => :printable
+      end
     end
   end
   

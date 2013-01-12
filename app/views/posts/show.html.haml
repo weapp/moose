@@ -1,7 +1,7 @@
 .headertext.clearfix
   .toolbox
+    %span= link_to (image_tag 'icon16/pdf.png') + " Download it on pdf!", printable_user_post_path(@user, @post, format: :pdf)
     = render "shared/time", object: @post
-    %span= link_to (image_tag 'icon16/pdf.png'), user_post_path(@user, @post, format: :pdf)
     -if can? :edit, @post
       %span= link_to (image_tag 'pencil.png'), edit_user_post_path(@user, @post)
   -if current_user.admin?
