@@ -21,10 +21,16 @@
     .toolbox
       %button.btn New Post
 
-.toolbox
-  &nbsp;
-
 -if can? :manage, Tag
   %form{action: tags_path}
     .toolbox
+      &nbsp;
+    .toolbox
       %button.btn Manage tags
+
+-if can? :manage, User
+  %form{action: all_users_path}
+    .toolbox
+      &nbsp;
+    .toolbox
+      %button.btn Manage users

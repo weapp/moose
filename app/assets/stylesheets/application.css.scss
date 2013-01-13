@@ -394,35 +394,70 @@ p.alert{
   right:0px;
   position:absolute;
 
-  .sign{
-    line-height:34px;
-    display:inline-block;
-    padding:0 1em;
-    margin:0 .3em;
+}
+/* 
 
-    border-radius: 4px;
-    border: 1px solid #DDD;
+.btn, .sign{
+  line-height:26px;
+  display:inline-block;
+  padding:0 1em;
+  margin:0 .3em;
 
-    box-shadow:1px 2px 3px -2px darken(#FFF, 15%);
+  border-radius: 4px;
+  border: 1px solid #DDD;
 
-    background-image: linear-gradient(bottom, rgb(231,231,240) 29%, rgb(255,255,255) 65%);
-    background-image: -o-linear-gradient(bottom, rgb(231,231,240) 29%, rgb(255,255,255) 65%);
-    background-image: -moz-linear-gradient(bottom, rgb(231,231,240) 29%, rgb(255,255,255) 65%);
-    background-image: -webkit-linear-gradient(bottom, rgb(231,231,240) 29%, rgb(255,255,255) 65%);
-    background-image: -ms-linear-gradient(bottom, rgb(231,231,240) 29%, rgb(255,255,255) 65%);
+  box-shadow:1px 2px 3px -2px darken(#FFF, 15%);
 
-    background-image: -webkit-gradient(
-      linear,
-      left bottom,
-      left top,
-      color-stop(0.29, rgb(231,231,240)),
-      color-stop(0.65, rgb(255,255,255))
-    );
+  background-image: linear-gradient(bottom, rgb(231,231,240) 29%, rgb(255,255,255) 65%);
+  background-image: -o-linear-gradient(bottom, rgb(231,231,240) 29%, rgb(255,255,255) 65%);
+  background-image: -moz-linear-gradient(bottom, rgb(231,231,240) 29%, rgb(255,255,255) 65%);
+  background-image: -webkit-linear-gradient(bottom, rgb(231,231,240) 29%, rgb(255,255,255) 65%);
+  background-image: -ms-linear-gradient(bottom, rgb(231,231,240) 29%, rgb(255,255,255) 65%);
 
-    &:hover{
-      text-decoration:none;
-    }
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.29, rgb(231,231,240)),
+    color-stop(0.65, rgb(255,255,255))
+  );
+
+  &:hover{
+    text-decoration:none;
   }
+}
+
+ */
+
+.sign, .btn{
+    border:1px solid #DDD;
+    padding: 1ex 1em;
+    color: #333333;
+    font-size:1.2em;
+    display:inline-block;
+
+
+  background: darken(#FEFEFF, 2%);
+  color: #333;
+  text-align: center;
+  text-shadow: 0 1px 0 #fff;
+  &:hover {
+    text-decoration:none;
+    background: darken(#FEFEFF, 4%);
+    color: #222;
+    cursor: pointer; }
+  &:active {
+    background: darken(#FEFEFF, 6%);
+    color: #000; }
+
+
+}
+
+.sign{
+    padding: 0 1em;
+    line-height:26px;
+    top:2px;
+    position:relative;
 }
 
 
@@ -457,7 +492,7 @@ p.alert{
   }
 }
 
-
+/* 
 .btn{
   padding:1.1ex 1em .9ex;
   background: lighten($blue, 12%);
@@ -473,18 +508,46 @@ p.alert{
   color:#FFF;
   padding-top:1.2ex;
   padding-bottom:.8ex;
- 
 }
 .btn:active{
   background: lighten($blue, 15%);
-}
+} */
 
-.edit_post{
-  textarea{
-    width: 100%;
-    max-width: 100%;
-    border-color:#DDD;
-  }
+/*
+.btn{
+  background: #e3e3e3;
+  background: darken(#FEFEFF, 2%);
+  border: 1px solid #bbb;
+  border:1px solid darken(#FFF, 10%);
+  border-radius: 3px;
+  -webkit-box-shadow: inset 0 0 1px 1px #f6f6f6;
+  box-shadow: inset 0 0 1px 1px #f6f6f6;
+  color: #333;
+  font: bold 12px/1 "helvetica neue", helvetica, arial, sans-serif;
+  padding: 8px 0 9px;
+  text-align: center;
+  text-shadow: 0 1px 0 #fff;
+  width: 150px; 
+  &:hover {
+    background: #d9d9d9;
+    background: darken(#FEFEFF, 4%);
+    -webkit-box-shadow: inset 0 0 1px 1px #eaeaea;
+    box-shadow: inset 0 0 1px 1px #eaeaea;
+    color: #222;
+    cursor: pointer; }
+  &:active {
+    background: #d0d0d0;
+    background: darken(#FEFEFF, 6%);
+    -webkit-box-shadow: inset 0 0 1px 1px #e3e3e3;
+    box-shadow: inset 0 0 1px 1px #e3e3e3;
+    color: #000; }
+}
+*/
+
+textarea{
+  width: 100%;
+  max-width: 100%;
+  border-color:#DDD;
 }
 
 .page, .devise{
@@ -572,6 +635,14 @@ p.alert{
   }
 }
 
+input, select, option, textarea{
+  border:1px solid #DDD;
+  padding: 1ex 1em;
+  color: #333333;
+  font-size:1.2em;
+}
+
+
 .toolbox{
   float:right;
   text-align:right;
@@ -653,8 +724,17 @@ p.alert{
 
 
 @media print {
-  body { background: transparent !important; color: black !important; filter:none !important; -ms-filter: none !important; }
-  body{font-size:12pt; max-width:100%;}
+  body {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+      font-size:12pt;
+      max-width:100%;
+      font-family:Georgia, Palatino, 'Palatino Linotype', Times,
+             'Times New Roman', serif,
+             "Hiragino Sans GB", "STXihei", "微软雅黑" !important;
+       }
   a, a:visited { text-decoration: underline; }
   a[href]:after { content: " (" attr(href) ")"; }
   abbr[title]:after { content: " (" attr(title) ")"; }
