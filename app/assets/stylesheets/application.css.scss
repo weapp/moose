@@ -9,6 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_reset
+ *= require codemirror
  *= require_self
  * require_tree .
  */
@@ -746,4 +747,44 @@ input, select, option, textarea{
   @page :right { margin: 15mm 10mm 15mm 20mm; }
   p, h2, h3 { orphans: 3; widows: 3; }
   h2, h3 { page-break-after: avoid; }
+}
+
+.CodeMirror{
+  background:white;
+}
+
+.cm-s-default{
+  font-family:Georgia;
+  
+  .cm-header{
+    color:black;
+    font-size: 120%;
+  }
+
+
+  .cm-comment{
+    width:90%;
+    color:black;
+    z-index:1;
+    &:after{
+      content:" ";
+      position:absolute;
+      left:0;
+      z-index:-10;
+      width:100%;
+      background:whitesmoke;
+      border:1px solid whitesmoke;
+      margin-top:-1px;
+      height:100%;
+      top:0;
+    }
+  }
+
+  .CodeMirror-lines{
+    padding:1ex .5em;
+  }
+
+  .CodeMirror-linenumber{
+    margin-left:-.5em;
+  }
 }
