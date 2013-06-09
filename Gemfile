@@ -25,6 +25,7 @@ gem 'gravatar_image_tag'
 gem "tabs_on_rails"
 
 gem 'friendly_id'
+gem 'figaro'
 
 # Gems used only for assets and not required
 # in production environments by default.
