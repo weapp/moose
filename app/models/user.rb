@@ -59,16 +59,16 @@ class User < ActiveRecord::Base
     @auth ||= role.try(:name)
   end
 
-  def active_for_authentication? 
-    super && approved? 
-  end 
+  def active_for_authentication?
+    super && approved?
+  end
 
-  def inactive_message 
-    if !approved? 
-      :not_approved 
-    else 
-      super # Use whatever other message 
-    end 
+  def inactive_message
+    if !approved?
+      :not_approved
+    else
+      super # Use whatever other message
+    end
   end
 
   def to_s
@@ -97,7 +97,7 @@ class User < ActiveRecord::Base
                          uid: auth.uid,
                          email: auth.info.email,
                          password: Devise.friendly_token[0,20]
-                         )  
+                         )
   end
 
   def self.find_for_github_oauth(auth, signed_in_resource=nil)
@@ -154,7 +154,7 @@ class User < ActiveRecord::Base
 
   private
     def set_default_role
-      self.role ||= Role.find_by_name('unapproved')
+      self.role ||= Role.find_by_name('read-all-write-one')
     end
 
 end
