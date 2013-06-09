@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(:version => 20130107200420) do
   end
 
   create_table "posts", :force => true do |t|
-    t.string   "text"
+    t.text   "text"
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
     t.string   "attachment_file_name"
@@ -29,13 +29,6 @@ ActiveRecord::Schema.define(:version => 20130107200420) do
     t.integer  "attachment_file_size"
     t.datetime "attachment_updated_at"
     t.integer  "user_id"
-  end
-
-  create_table "posts_tags", :force => true do |t|
-    t.integer  "post_id"
-    t.integer  "tag_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "roles", :force => true do |t|
