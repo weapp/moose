@@ -311,13 +311,13 @@ border-left: 0.5em #EEE solid;
 hr { display: block; height: 2px; border: 0; border-top: 1px solid #aaa;border-bottom: 1px solid #eee; margin: 1em 0; padding: 0; }
 
 
-pre , code, kbd, samp { 
-  color: #000; 
-  font-family: monospace; 
-  font-size: 0.88em; 
+pre , code, kbd, samp {
+  color: #000;
+  font-family: monospace;
+  font-size: 0.88em;
   border-radius:3px;
   background-color: #F8F8F8;
-  border: 1px solid #CCC; 
+  border: 1px solid #CCC;
 }
 pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; padding: 5px;}
 pre code { border: 0px !important; }
@@ -396,7 +396,7 @@ p.alert{
   position:absolute;
 
 }
-/* 
+/*
 
 .btn, .sign{
   line-height:26px;
@@ -493,7 +493,7 @@ p.alert{
   }
 }
 
-/* 
+/*
 .btn{
   padding:1.1ex 1em .9ex;
   background: lighten($blue, 12%);
@@ -528,7 +528,7 @@ p.alert{
   padding: 8px 0 9px;
   text-align: center;
   text-shadow: 0 1px 0 #fff;
-  width: 150px; 
+  width: 150px;
   &:hover {
     background: #d9d9d9;
     background: darken(#FEFEFF, 4%);
@@ -755,7 +755,7 @@ input, select, option, textarea{
 
 .cm-s-default{
   font-family:Georgia;
-  
+
   .cm-header{
     color:black;
     font-size: 120%;

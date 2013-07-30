@@ -154,7 +154,7 @@ class User < ActiveRecord::Base
 
   private
     def set_default_role
-      self.role ||= Role.find_by_name('read-all-write-one')
+      self.role ||= Role.find_by_name('read-one-write-one')
     end
 
 end

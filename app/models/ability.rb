@@ -13,8 +13,12 @@ class Ability
       # permisos de lectura
       if ['read-only', 'read-one-write-one'].include?(user.auth)
         can :read, User, :id => user.id
-        can :read_post, Post, :user_id => user.id
         can :read, Tag, :posts => {:user_id => user.id}
+
+        can :read_post, Post, :user_id => user.id
+        can :read_post, Post, :public => true
+        #can :read_post, Post do |post| post.try(:user) == user end
+
       elsif user.auth == 'read-all-write-one'
         can :read, User
         can :read_post, Post
