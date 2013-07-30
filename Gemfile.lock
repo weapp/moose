@@ -88,6 +88,7 @@ GEM
     mime-types (1.19)
     multi_json (1.5.0)
     multipart-post (1.1.5)
+    newrelic_rpm (3.6.6.147)
     oauth (0.4.7)
     oauth2 (0.8.0)
       faraday (~> 0.8)
@@ -187,6 +188,7 @@ DEPENDENCIES
   gravatar_image_tag
   haml-rails
   jquery-rails
+  newrelic_rpm
   omniauth
   omniauth-facebook
   omniauth-github
