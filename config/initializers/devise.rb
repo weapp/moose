@@ -212,10 +212,10 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
 
 
-  config.omniauth :github, ENV['github_id'], ENV['github_secret'], :scope => 'user'
-  config.omniauth :facebook, ENV['facebook_id'], ENV['facebook_secret'], :strategy_class => OmniAuth::Strategies::Facebook
-  config.omniauth :google_oauth2, ENV['google_id'], ENV['google_secret'], { access_type: "offline", approval_prompt: "" }
-  config.omniauth :twitter, ENV['twitter_id'], ENV['twitter_secret']
+  config.omniauth :github, ENV['github_id'], ENV['github_secret'], :scope => 'user' if ENV['github_id'].present?
+  config.omniauth :facebook, ENV['facebook_id'], ENV['facebook_secret'], :strategy_class => OmniAuth::Strategies::Facebook if ENV['facebook_id'].present?
+  config.omniauth :google_oauth2, ENV['google_id'], ENV['google_secret'], { access_type: "offline", approval_prompt: "" } if ENV['google_id'].present?
+  config.omniauth :twitter, ENV['twitter_id'], ENV['twitter_secret'] if ENV['twitter_id'].present?
 
 
   # ==> Warden configuration

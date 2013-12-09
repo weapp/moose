@@ -697,21 +697,20 @@ input, select, option, textarea{
 .owner{
   position:relative;
   width:0;
+  height:0;
   .name{
-    white-space:nowrap;
     position:absolute;
     right:1em;
     top:-1ex;
     margin-top:-1px;
     background:#FFF;
-    padding:5px;
+    padding:5px 5px 5px 30px;
     border:1px solid darken(#FFF, 10%);
     border-right-width:0px;
   }
   .gravatar{
-    display:inline;
-    float:left;
-    margin: 0 .5em 0 0;
+    position: absolute;
+    left:12px;
   }
   .updated{
     display:block;

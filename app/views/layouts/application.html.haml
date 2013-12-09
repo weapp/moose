@@ -21,13 +21,13 @@
           or
           = link_to "sign in", new_user_session_path, class: "sign"
 
-          = link_to (image_tag "facebook_32.png"), user_omniauth_authorize_path(:facebook)
+          = link_to (image_tag "facebook_32.png"), user_omniauth_authorize_path(:facebook) if ENV['facebook_id']
           \
-          = link_to (image_tag "github_32.png"), user_omniauth_authorize_path(:github)
+          = link_to (image_tag "github_32.png"), user_omniauth_authorize_path(:github) if ENV['github_id']
           \
-          = link_to (image_tag "google_32.png"), user_omniauth_authorize_path(:google_oauth2)
+          = link_to (image_tag "google_32.png"), user_omniauth_authorize_path(:google_oauth2) if ENV['google_oauth2_id']
           \
-          = link_to (image_tag "twitter_32.png"), user_omniauth_authorize_path(:twitter)
+          = link_to (image_tag "twitter_32.png"), user_omniauth_authorize_path(:twitter) if ENV['twitter_id']
     .clearfix
       %p.notice= notice
       %p.alert= alert
